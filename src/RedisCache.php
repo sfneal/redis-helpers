@@ -192,7 +192,7 @@ class RedisCache extends AbstractService
         Cache::increment(self::key($key), $value);
 
         // Return the new value
-        // todo: check if this is neeeded
+        // todo: check if this is needed
         return self::get($key);
     }
 
