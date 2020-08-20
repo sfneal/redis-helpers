@@ -44,10 +44,33 @@ class RedisCache extends AbstractService
      * Get items from the cache.
      *
      * @param string $key
-     * @return string
+     * @return mixed
      */
-    public static function get(string $key): string
+    public static function get(string $key)
     {
         return Cache::get(self::key($key));
+    }
+
+    /**
+     * Put items in the cache with a TTL.
+     *
+     * Use's environment's REDIS_KEY_EXPIRATION value if $expiration is null.
+     *
+     * @param string $key
+     * @param null $value
+     * @param null $expiration
+     * @return string
+     */
+    public static function set(string $key, $value = null, $expiration = null)
+    {
+        // Store the $value in the Cache
+        Cache::put(
+            $key,
+            $value,
+            (isset($expiration) ? $expiration : env('REDIS_KEY_EXPIRATION', 3600))
+        );
+
+        // Return the $value
+        return $value;
     }
 }

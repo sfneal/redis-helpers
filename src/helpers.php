@@ -52,9 +52,7 @@ function redisGet(string $redis_key)
  */
 function redisSet(string $redis_key, $value = null, $expiration = null)
 {
-    Cache::put($redis_key, $value, (isset($expiration) ? $expiration : env('REDIS_KEY_EXPIRATION', 3600)));
-
-    return $value;
+    return RedisCache::set($redis_key, $value, $expiration);
 }
 
 /**
