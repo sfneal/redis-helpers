@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\View;
+use Sfneal\Helpers\Redis\RedisCache;
 
 // todo: create CacheService & CacheService package?
 
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\View;
  */
 function redisKey(string $redis_key)
 {
-    return env('REDIS_KEY_PREFIX', 'app').":$redis_key";
+    return RedisCache::key($redis_key);
 }
 
 /**
@@ -25,15 +26,7 @@ function redisKey(string $redis_key)
  */
 function redisKeys(string $redis_key_prefix)
 {
-    return array_map(
-        // Remove prefix from each key so it is not concatenated twice
-        function ($key) {
-            return substr($key, strlen(env('REDIS_KEY_PREFIX')) + 1);
-        },
-
-        // List of Redis key's matching pattern
-        Redis::connection('default')->client()->keys(redisKey($redis_key_prefix.'*'))
-    );
+    return RedisCache::keys($redis_key_prefix);
 }
 
 /**
