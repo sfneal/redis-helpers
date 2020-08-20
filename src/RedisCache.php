@@ -4,6 +4,7 @@
 namespace Sfneal\Helpers\Redis;
 
 
+use Closure;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
 use Sfneal\Actions\AbstractService;
@@ -213,5 +214,30 @@ class RedisCache extends AbstractService
     public static function clear()
     {
         return self::delete('');
+    }
+
+    /**
+     * Pass a $callback function to be stored in the Cache for an amount of time
+     *
+     * @param string $key
+     * @param int $ttl
+     * @param Closure $callback
+     * @return mixed
+     */
+    public static function remember(string $key, int $ttl, Closure $callback)
+    {
+        return Cache::remember($key, $ttl, $callback);
+    }
+
+    /**
+     * Pass a $callback function to be stored in the Cache forever
+     *
+     * @param string $key
+     * @param Closure $callback
+     * @return mixed
+     */
+    public static function rememberForever(string $key, Closure $callback)
+    {
+        return Cache::rememberForever($key, $callback);
     }
 }

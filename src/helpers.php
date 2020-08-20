@@ -157,7 +157,7 @@ function redisFlush()
  */
 function redisClearCache()
 {
-    return RedisCache::delete();
+    return RedisCache::clear();
 }
 
 
@@ -171,7 +171,7 @@ function redisClearCache()
  */
 function redisRemember(string $key, int $ttl, Closure $callback)
 {
-    return Cache::remember($key, $ttl, $callback);
+    return RedisCache::remember($key, $ttl, $callback);
 }
 
 
@@ -184,5 +184,5 @@ function redisRemember(string $key, int $ttl, Closure $callback)
  */
 function redisRememberForever(string $key, Closure $callback)
 {
-    return Cache::rememberForever($key, $callback);
+    return RedisCache::rememberForever($key, $callback);
 }
