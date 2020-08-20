@@ -37,7 +37,7 @@ function redisKeys(string $redis_key_prefix)
  */
 function redisGet(string $redis_key)
 {
-    return Cache::get($redis_key);
+    return RedisCache::get($redis_key);
 }
 
 /**

@@ -4,6 +4,7 @@
 namespace Sfneal\Helpers\Redis;
 
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
 use Sfneal\Actions\AbstractService;
 
@@ -37,5 +38,16 @@ class RedisCache extends AbstractService
             // List of Redis key's matching pattern
             Redis::connection('default')->client()->keys(redisKey($prefix.'*'))
         );
+    }
+
+    /**
+     * Get items from the cache.
+     *
+     * @param string $key
+     * @return string
+     */
+    public static function get(string $key): string
+    {
+        return Cache::get(self::key($key));
     }
 }
