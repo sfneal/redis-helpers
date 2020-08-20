@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Sfneal\Helpers\Redis;
-
 
 use Closure;
 use Illuminate\Support\Facades\Cache;
@@ -85,7 +83,7 @@ class RedisCache extends AbstractService
     public static function expire(string $key, $expiration = null)
     {
         // Use environment REDIS_KEY_EXPIRATION value if not set
-        if (!$expiration) {
+        if (! $expiration) {
             $expiration = env('REDIS_KEY_EXPIRATION', 3600);
         }
 
@@ -217,7 +215,7 @@ class RedisCache extends AbstractService
     }
 
     /**
-     * Pass a $callback function to be stored in the Cache for an amount of time
+     * Pass a $callback function to be stored in the Cache for an amount of time.
      *
      * @param string $key
      * @param int $ttl
@@ -230,7 +228,7 @@ class RedisCache extends AbstractService
     }
 
     /**
-     * Pass a $callback function to be stored in the Cache forever
+     * Pass a $callback function to be stored in the Cache forever.
      *
      * @param string $key
      * @param Closure $callback
