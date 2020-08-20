@@ -212,3 +212,30 @@ function redisFlush() {
 function redisClearCache() {
     return redisDelete('');
 }
+
+
+/**
+ * Pass a $callback function to be stored in the Cache for an amount of time
+ *
+ * @param string $key
+ * @param int $ttl
+ * @param Closure $callback
+ * @return mixed
+ */
+function redisRemember(string $key, int $ttl, Closure $callback)
+{
+    return Cache::remember($key, $ttl, $callback);
+}
+
+
+/**
+ * Pass a $callback function to be stored in the Cache forever
+ *
+ * @param string $key
+ * @param Closure $callback
+ * @return mixed
+ */
+function redisRememberForever(string $key, Closure $callback)
+{
+    return Cache::rememberForever($key, $callback);
+}
