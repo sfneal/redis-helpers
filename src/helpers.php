@@ -1,11 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\View;
 use Sfneal\Helpers\Redis\RedisCache;
-
-// todo: create CacheService & CacheService package?
 
 /**
  * Retrieve a formatted RedisKey with the environment prefix included.
