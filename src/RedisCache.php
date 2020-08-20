@@ -152,4 +152,25 @@ class RedisCache extends AbstractService
     {
         return Cache::missing(self::key($key));
     }
+
+    /**
+     * Create a Redis Key with a null value if it is missing.
+     *
+     * @param string $key
+     * @param null $value
+     * @param null $expiration
+     * @return bool
+     */
+    public static function setIfMissing(string $key, $value = null, $expiration = null): bool
+    {
+        // Create the redis Key with an expiration
+        if (self::missing($key)) {
+            self::set($key, $value, $expiration);
+
+            return true;
+        }
+
+        // Not created
+        return false;
+    }
 }

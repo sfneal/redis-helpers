@@ -111,7 +111,7 @@ function redisMissing(string $redis_key)
  */
 function redisCacheView(string $redis_key, string $view, array $data, int $expiration = null)
 {
-    return redisSet($redis_key, View::make($view, $data)->render(), $expiration);
+    return RedisCache::set($redis_key, View::make($view, $data)->render(), $expiration);
 }
 
 /**
@@ -124,15 +124,7 @@ function redisCacheView(string $redis_key, string $view, array $data, int $expir
  */
 function redisCreateIfMissing(string $redis_key, $value = null, int $expiration = null): bool
 {
-    // Create the redis Key with an expiration
-    if (redisMissing($redis_key)) {
-        redisSet($redis_key, $value, $expiration);
-
-        return true;
-    }
-
-    // Not created
-    return false;
+    return RedisCache::setIfMissing($redis_key, $value, $expiration);
 }
 
 /**
