@@ -194,4 +194,24 @@ class RedisCache extends AbstractService
         // todo: check if this is neeeded
         return self::get($key);
     }
+
+    /**
+     * Flush the entire redis cache.
+     *
+     * @return mixed
+     */
+    public static function flush()
+    {
+        return Redis::connection('default')->client()->flushAll();
+    }
+
+    /**
+     * Flush the redis cache of all keys with environment's prefix.
+     *
+     * @return mixed
+     */
+    public static function clear()
+    {
+        return self::delete('');
+    }
 }

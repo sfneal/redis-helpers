@@ -147,7 +147,7 @@ function redisIncrement(string $redis_key, int $value = 1, int $expiration = nul
  */
 function redisFlush()
 {
-    return Redis::connection('default')->client()->flushAll();
+    return RedisCache::flush();
 }
 
 /**
@@ -157,7 +157,7 @@ function redisFlush()
  */
 function redisClearCache()
 {
-    return redisDelete('');
+    return RedisCache::delete();
 }
 
 
