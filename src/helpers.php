@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\View;
  */
 function redisKey(string $redis_key)
 {
-    return env('REDIS_KEY_PREFIX', 'projects').":$redis_key";
+    return env('REDIS_KEY_PREFIX', 'app').":$redis_key";
 }
 
 /**
@@ -59,7 +59,7 @@ function redisGet(string $redis_key)
  */
 function redisSet(string $redis_key, $value = null, $expiration = null)
 {
-    Cache::put($redis_key, $value, (isset($expiration) ? $expiration : env('REDIS_KEY_EXPIRATION')));
+    Cache::put($redis_key, $value, (isset($expiration) ? $expiration : env('REDIS_KEY_EXPIRATION', 3600)));
 
     return $value;
 }
@@ -75,7 +75,7 @@ function redisExpire(string $redis_key, $expiration = null)
 {
     // Use environment REDIS_KEY_EXPIRATION value if not set
     if (! $expiration) {
-        $expiration = env('REDIS_KEY_EXPIRATION');
+        $expiration = env('REDIS_KEY_EXPIRATION', 3600);
     }
 
     // Create a key value pair with a null value and a TTL if the key is missing
