@@ -75,27 +75,7 @@ function redisExpire(string $redis_key, $expiration = null)
  */
 function redisDelete($redis_key)
 {
-    // Empty array of keys to delete
-    $keys = [];
-
-    // Check if an array of keys has been passed
-    if (gettype($redis_key) == 'array') {
-        // Recursively merge arrays of keys found matching pattern
-        foreach (array_values($redis_key) as $value) {
-            $keys = array_merge($keys, redisKeys($value));
-        }
-    } else {
-        // All keys matching pattern
-        $keys = array_merge($keys, redisKeys($redis_key));
-    }
-
-    // Remove all keys that match param patterns
-    $to_remove = array_values($keys);
-    foreach ($to_remove as $value) {
-        Cache::forget($value);
-    }
-
-    return array_values($to_remove);
+    return RedisCache::delete($redis_key);
 }
 
 /**
@@ -106,7 +86,7 @@ function redisDelete($redis_key)
  */
 function redisExists(string $redis_key)
 {
-    return Cache::has($redis_key);
+    return RedisCache::exists($redis_key);
 }
 
 /**
@@ -117,7 +97,7 @@ function redisExists(string $redis_key)
  */
 function redisMissing(string $redis_key)
 {
-    return Cache::missing($redis_key);
+    return RedisCache::missing($redis_key);
 }
 
 /**

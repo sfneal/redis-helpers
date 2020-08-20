@@ -36,7 +36,7 @@ class RedisCache extends AbstractService
             },
 
             // List of Redis key's matching pattern
-            Redis::connection('default')->client()->keys(redisKey($prefix.'*'))
+            Redis::connection('default')->client()->keys(self::key($prefix.'*'))
         );
     }
 
@@ -89,7 +89,7 @@ class RedisCache extends AbstractService
         }
 
         // Create a key value pair with a null value and a TTL if the key is missing
-        if (redisMissing($key)) {
+        if (self::missing($key)) {
             return self::set($key, null, $expiration);
         }
 
@@ -97,5 +97,59 @@ class RedisCache extends AbstractService
         else {
             return self::set($key, self::get($key), $expiration);
         }
+    }
+
+    /**
+     * Delete Redis key's from the Cache.
+     *
+     * @param $key array|string
+     * @return mixed
+     */
+    public static function delete($key)
+    {
+        // Empty array of keys to delete
+        $keys = [];
+
+        // Check if an array of keys has been passed
+        if (gettype($key) == 'array') {
+            // Recursively merge arrays of keys found matching pattern
+            foreach (array_values($key) as $value) {
+                $keys = array_merge($keys, self::keys($value));
+            }
+        } else {
+            // All keys matching pattern
+            $keys = array_merge($keys, self::keys($key));
+        }
+
+        // Remove all keys that match param patterns
+        $to_remove = array_values($keys);
+        foreach ($to_remove as $value) {
+            Cache::forget($value);
+        }
+
+        // Return array of deleted keys
+        return array_values($to_remove);
+    }
+
+    /**
+     * Determine if a redis key exists in the cache.
+     *
+     * @param string $key
+     * @return bool
+     */
+    public static function exists(string $key): bool
+    {
+        return Cache::has(self::key($key));
+    }
+
+    /**
+     * Determine if a redis key is missing from the cache.
+     *
+     * @param string $key
+     * @return bool
+     */
+    public static function missing(string $key): bool
+    {
+        return Cache::missing(self::key($key));
     }
 }
