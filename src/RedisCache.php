@@ -173,4 +173,25 @@ class RedisCache extends AbstractService
         // Not created
         return false;
     }
+
+    /**
+     * Increment a Redis Key's value & return the new value.
+     *
+     * @param string $key
+     * @param int $value
+     * @param int|null $expiration
+     * @return mixed
+     */
+    public static function increment(string $key, int $value = 1, int $expiration = null)
+    {
+        // Create the Key if it's missing
+        self::setIfMissing($key, 0, $expiration);
+
+        // Increment the value
+        Cache::increment(self::key($key), $value);
+
+        // Return the new value
+        // todo: check if this is neeeded
+        return self::get($key);
+    }
 }

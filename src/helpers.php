@@ -137,14 +137,7 @@ function redisCreateIfMissing(string $redis_key, $value = null, int $expiration 
  */
 function redisIncrement(string $redis_key, int $value = 1, int $expiration = null)
 {
-    // Create the Key if it's missing
-    redisCreateIfMissing($redis_key, 0, $expiration);
-
-    // Increment the value
-    Cache::increment($redis_key, $value);
-
-    // Return the new value
-    return Cache::get($redis_key);
+    return RedisCache::increment($redis_key, $value, $expiration);
 }
 
 /**
