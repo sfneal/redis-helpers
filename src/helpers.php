@@ -64,20 +64,7 @@ function redisSet(string $redis_key, $value = null, $expiration = null)
  */
 function redisExpire(string $redis_key, $expiration = null)
 {
-    // Use environment REDIS_KEY_EXPIRATION value if not set
-    if (! $expiration) {
-        $expiration = env('REDIS_KEY_EXPIRATION', 3600);
-    }
-
-    // Create a key value pair with a null value and a TTL if the key is missing
-    if (redisMissing($redis_key)) {
-        return redisSet($redis_key, null, $expiration);
-    }
-
-    // Create a key value pair with original value and a TTL if the key exists
-    else {
-        return redisSet($redis_key, redisGet($redis_key), $expiration);
-    }
+    return RedisCache::expire($redis_key, $expiration);
 }
 
 /**

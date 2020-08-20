@@ -73,4 +73,29 @@ class RedisCache extends AbstractService
         // Return the $value
         return $value;
     }
+
+    /**
+     * Add a TTL attribute (time to live or time til expiration) to a Redis key.
+     *
+     * @param string $key
+     * @param null $expiration
+     * @return string|null
+     */
+    public static function expire(string $key, $expiration = null)
+    {
+        // Use environment REDIS_KEY_EXPIRATION value if not set
+        if (!$expiration) {
+            $expiration = env('REDIS_KEY_EXPIRATION', 3600);
+        }
+
+        // Create a key value pair with a null value and a TTL if the key is missing
+        if (redisMissing($key)) {
+            return self::set($key, null, $expiration);
+        }
+
+        // Create a key value pair with original value and a TTL if the key exists
+        else {
+            return self::set($key, self::get($key), $expiration);
+        }
+    }
 }
