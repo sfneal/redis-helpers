@@ -26,7 +26,7 @@ class RedisCache extends AbstractService
      * @param string $prefix
      * @return mixed list of keys without prefix
      */
-    public static function keys(string $prefix): string
+    public static function keys(string $prefix)
     {
         return array_map(
         // Remove prefix from each key so it is not concatenated twice
