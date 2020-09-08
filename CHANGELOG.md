@@ -16,3 +16,7 @@ All notable changes to `redis-helpers` will be documented in this file
 
 ## 0.2.1 - 2020-08-21
 - fix issue with RedisCache::keys() type hinting
+
+
+## 0.3.0 - 2020-09-08
+- fix composer.json to allow for use of laravel/framework:8.0
