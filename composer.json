@@ -19,7 +19,7 @@
         "php": "^7.0",
         "illuminate/redis": ">=7.25",
         "illuminate/support": ">=7.25",
-        "sfneal/actions": ">=0.1.3"
+        "sfneal/actions": ">=0.2.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^7.0"
