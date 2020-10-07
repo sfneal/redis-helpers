@@ -20,3 +20,7 @@ All notable changes to `redis-helpers` will be documented in this file
 
 ## 0.3.0 - 2020-09-08
 - fix composer.json to allow for use of laravel/framework:8.0
+
+
+## 0.4.0 - 2020-10-07
+- add backwards compatibility for php7
