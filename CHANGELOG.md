@@ -24,3 +24,7 @@ All notable changes to `redis-helpers` will be documented in this file
 
 ## 0.4.0 - 2020-10-07
 - add backwards compatibility for php7
+
+
+## 0.4.0 - 2020-10-08
+- add support for php8
