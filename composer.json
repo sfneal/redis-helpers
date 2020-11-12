@@ -1,6 +1,6 @@
 {
     "name": "sfneal/redis-helpers",
-    "description": "Boilerplate for PHP package repo's",
+    "description": "Redis helper functions for improved Redis cache transactions with PHP applications.",
     "keywords": [
         "sfneal",
         "redis-helpers"
