@@ -1,7 +1,8 @@
 # Redis Helpers
 
+[![Packagist PHP support](https://img.shields.io/packagist/php-v/sfneal/redis-helpers)](https://packagist.org/packages/sfneal/redis-helpers)
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/sfneal/redis-helpers.svg?style=flat-square)](https://packagist.org/packages/sfneal/redis-helpers)
-[![Build Status](https://img.shields.io/travis/sfneal/redis-helpers/master.svg?style=flat-square)](https://travis-ci.org/sfneal/redis-helpers)
+[![Build Status](https://travis-ci.com/sfneal/redis-helpers.svg?branch=master&style=flat-square)](https://travis-ci.com/sfneal/redis-helpers)
 [![Quality Score](https://img.shields.io/scrutinizer/g/sfneal/redis-helpers.svg?style=flat-square)](https://scrutinizer-ci.com/g/sfneal/redis-helpers)
 [![Total Downloads](https://img.shields.io/packagist/dt/sfneal/redis-helpers.svg?style=flat-square)](https://packagist.org/packages/sfneal/redis-helpers)
 
