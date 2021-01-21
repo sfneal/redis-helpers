@@ -3,7 +3,8 @@
 [![Packagist PHP support](https://img.shields.io/packagist/php-v/sfneal/redis-helpers)](https://packagist.org/packages/sfneal/redis-helpers)
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/sfneal/redis-helpers.svg?style=flat-square)](https://packagist.org/packages/sfneal/redis-helpers)
 [![Build Status](https://travis-ci.com/sfneal/redis-helpers.svg?branch=master&style=flat-square)](https://travis-ci.com/sfneal/redis-helpers)
-[![Quality Score](https://img.shields.io/scrutinizer/g/sfneal/redis-helpers.svg?style=flat-square)](https://scrutinizer-ci.com/g/sfneal/redis-helpers)
+[![StyleCI](https://github.styleci.io/repos/288488301/shield?branch=master)](https://github.styleci.io/repos/288488301?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/sfneal/redis-helpers/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/sfneal/redis-helpers/?branch=master)
 [![Total Downloads](https://img.shields.io/packagist/dt/sfneal/redis-helpers.svg?style=flat-square)](https://packagist.org/packages/sfneal/redis-helpers)
 
 Redis helper functions for improved Redis cache transactions with PHP applications
