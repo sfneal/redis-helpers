@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": ">=7.0",
+        "php": ">=7.1",
         "illuminate/redis": ">=5.0",
         "laravel/framework": ">=7.24",
         "sfneal/actions": ">=1.0.0"
