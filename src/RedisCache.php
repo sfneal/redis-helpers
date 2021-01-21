@@ -49,7 +49,7 @@ class RedisCache extends AbstractService
     public static function keys(string $prefix)
     {
         return array_map(
-        // Remove prefix from each key so it is not concatenated twice
+            // Remove prefix from each key so it is not concatenated twice
             function ($key) {
                 return substr($key, strlen(self::prefix()) + 1);
             },
