@@ -41,7 +41,7 @@
             "Sfneal\\Helpers\\Redis\\Tests\\": "tests"
         },
         "files": [
-            "src/helpers.php"
+            "src/redis.php"
         ]
     },
     "scripts": {

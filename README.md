@@ -24,7 +24,7 @@ In order to autoload to the helper functions add the following path to the autol
 ```json
 "autoload": {
     "files": [
-        "vendor/sfneal/redis-helpers/src/helpers.php"
+        "vendor/sfneal/redis-helpers/src/redis.php"
     ]
 },
 ```
