@@ -18,24 +18,31 @@
     "require": {
         "php": ">=7.0",
         "illuminate/redis": ">=5.0",
-        "illuminate/support": ">=5.0",
+        "laravel/framework": ">=7.24",
         "sfneal/actions": ">=1.0.0"
     },
     "require-dev": {
         "phpunit/phpunit": ">=6.5.14"
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Sfneal\\Helpers\\Redis\\Providers\\RedisHelpersServiceProvider"
+            ]
+        }
+    },
     "autoload": {
         "psr-4": {
             "Sfneal\\Helpers\\Redis\\": "src"
-        },
-        "files": [
-            "src/helpers.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {
             "Sfneal\\Helpers\\Redis\\Tests\\": "tests"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "scripts": {
         "test": "vendor/bin/phpunit",

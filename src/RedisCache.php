@@ -9,7 +9,25 @@ use Sfneal\Actions\AbstractService;
 
 class RedisCache extends AbstractService
 {
-    // todo: replace use of env with config
+    /**
+     * Retrieve the Redis Key prefix from the config
+     *
+     * @return string
+     */
+    public static function prefix(): string
+    {
+        return config('redis-helpers.prefix', 'app');
+    }
+
+    /**
+     * Retrieve the Redis Key TTL from the config
+     *
+     * @return int
+     */
+    public static function ttl(): int
+    {
+        return config('redis-helpers.ttl', '3600');
+    }
 
     /**
      * Retrieve a formatted RedisKey with the environment prefix included.
@@ -19,7 +37,7 @@ class RedisCache extends AbstractService
      */
     public static function key(string $key): string
     {
-        return env('REDIS_KEY_PREFIX', 'app').":$key";
+        return self::prefix() . ":$key";
     }
 
     /**
@@ -33,7 +51,7 @@ class RedisCache extends AbstractService
         return array_map(
         // Remove prefix from each key so it is not concatenated twice
             function ($key) {
-                return substr($key, strlen(env('REDIS_KEY_PREFIX')) + 1);
+                return substr($key, strlen(self::prefix()) + 1);
             },
 
             // List of Redis key's matching pattern
@@ -68,7 +86,7 @@ class RedisCache extends AbstractService
         Cache::put(
             $key,
             $value,
-            (isset($expiration) ? $expiration : env('REDIS_KEY_EXPIRATION', 3600))
+            (isset($expiration) ? $expiration : self::ttl())
         );
 
         // Return the $value
@@ -86,7 +104,7 @@ class RedisCache extends AbstractService
     {
         // Use environment REDIS_KEY_EXPIRATION value if not set
         if (! $expiration) {
-            $expiration = env('REDIS_KEY_EXPIRATION', 3600);
+            $expiration = self::ttl();
         }
 
         // Create a key value pair with a null value and a TTL if the key is missing
