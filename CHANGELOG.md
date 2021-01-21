@@ -32,3 +32,10 @@ All notable changes to `redis-helpers` will be documented in this file
 
 ## 0.5.1 - 2020-12-11
 - fix support for php8
+
+
+## 1.0.0 - 2021-01-21
+- add config file & service provider for publishing & registering it
+- fix use of env() helper function with config() in RedisCache
+- add service provider to composer.json for publishing config file
+- cut autoloading of helpers.php
