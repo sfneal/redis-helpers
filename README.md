@@ -19,6 +19,16 @@ You can install the package via composer:
 composer require sfneal/redis-helpers
 ```
 
+In order to autoload to the helper functions add the following path to the autoload.files section in your composer.json.
+
+```json
+"autoload": {
+    "files": [
+        "vendor/sfneal/redis-helpers/src/helpers.php"
+    ]
+},
+```
+
 ## Usage
 
 ``` php
