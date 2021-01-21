@@ -26,7 +26,7 @@ class RedisCache extends AbstractService
      */
     public static function ttl(): int
     {
-        return config('redis-helpers.ttl', '3600');
+        return config('redis-helpers.ttl', 3600);
     }
 
     /**
