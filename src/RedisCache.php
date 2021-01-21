@@ -9,6 +9,8 @@ use Sfneal\Actions\AbstractService;
 
 class RedisCache extends AbstractService
 {
+    // todo: replace use of env with config
+
     /**
      * Retrieve a formatted RedisKey with the environment prefix included.
      *
