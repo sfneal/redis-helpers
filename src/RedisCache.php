@@ -10,7 +10,7 @@ use Sfneal\Actions\AbstractService;
 class RedisCache extends AbstractService
 {
     /**
-     * Retrieve the Redis Key prefix from the config
+     * Retrieve the Redis Key prefix from the config.
      *
      * @return string
      */
@@ -20,7 +20,7 @@ class RedisCache extends AbstractService
     }
 
     /**
-     * Retrieve the Redis Key TTL from the config
+     * Retrieve the Redis Key TTL from the config.
      *
      * @return int
      */
@@ -37,7 +37,7 @@ class RedisCache extends AbstractService
      */
     public static function key(string $key): string
     {
-        return self::prefix() . ":$key";
+        return self::prefix().":$key";
     }
 
     /**

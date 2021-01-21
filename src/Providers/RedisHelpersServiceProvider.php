@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Sfneal\Helpers\Redis\Providers;
-
 
 use Illuminate\Support\ServiceProvider;
 
