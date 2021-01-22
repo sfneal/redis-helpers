@@ -44,3 +44,7 @@ All notable changes to `redis-helpers` will be documented in this file
 ## 0.7.0 - 2021-01-21
 - cut support for php7.0
 - add LaravelTest for testing ServiceProvider & config
+
+
+## 0.7.1 - 2021-01-22
+- fix min laravel/framework version to support php7.1
