@@ -48,3 +48,7 @@ All notable changes to `redis-helpers` will be documented in this file
 
 ## 0.7.1 - 2021-01-22
 - fix min laravel/framework version to support php7.1
+
+
+## 0.7.2 - 2021-01-22
+- fix min orchestra/testbench version to support php7.1
