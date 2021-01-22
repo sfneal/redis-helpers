@@ -29,6 +29,12 @@ In order to autoload to the helper functions add the following path to the autol
 },
 ```
 
+To modify the redis-helpers 'prefix' & 'ttl' setting publish the ServiceProvider & modify the config.
+
+``` php
+php artisan vendor:publish --provider="Sfneal\Helpers\Redis\Providers\RedisHelpersServiceProvider"
+```
+
 ## Usage
 
 ``` php
