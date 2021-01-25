@@ -83,8 +83,9 @@ class RedisCache extends AbstractService
     public static function set(string $key, $value = null, $expiration = null)
     {
         // Store the $value in the Cache
+        // todo: change return type to pull
         Cache::put(
-            $key,
+            self::key($key),
             $value,
             (isset($expiration) ? $expiration : self::ttl())
         );
