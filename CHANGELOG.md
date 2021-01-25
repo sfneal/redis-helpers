@@ -56,3 +56,5 @@ All notable changes to `redis-helpers` will be documented in this file
 
 ## 0.8.0 - 2021-01-25
 - add RedisCacheTest for testing RedisCache functionality
+- fix issue with self::key() method not being used in set() method
+- add setMany method to RedisCache for setting an array of key values
