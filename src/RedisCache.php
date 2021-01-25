@@ -77,10 +77,10 @@ class RedisCache extends AbstractService
      *
      * @param string $key
      * @param null $value
-     * @param null $expiration
+     * @param int|null $expiration
      * @return string
      */
-    public static function set(string $key, $value = null, $expiration = null)
+    public static function set(string $key, $value = null, int $expiration = null)
     {
         // Store the $value in the Cache
         // todo: change return type to pull
@@ -92,6 +92,22 @@ class RedisCache extends AbstractService
 
         // Return the $value
         return $value;
+    }
+
+    /**
+     * Put an array of key value pairs into the cache with a TTL
+     *
+     * @param array $array
+     * @param int|null $expiration
+     * @return array
+     */
+    public static function setMany(array $array, int $expiration = null): array
+    {
+        foreach ($array as $key => $value) {
+            self::set($key, $value, $expiration);
+        }
+
+        return array_values($array);
     }
 
     /**
