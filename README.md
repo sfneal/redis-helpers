@@ -38,7 +38,8 @@ php artisan vendor:publish --provider="Sfneal\Helpers\Redis\Providers\RedisHelpe
 ## Usage
 
 ``` php
-// Usage description here
+# Add a key value pair to the cache
+RedisCache::set('pastrnak', 88);
 ```
 
 ### Testing
