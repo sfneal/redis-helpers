@@ -95,7 +95,7 @@ class RedisCache extends AbstractService
     }
 
     /**
-     * Put an array of key value pairs into the cache with a TTL
+     * Put an array of key value pairs into the cache with a TTL.
      *
      * @param array $array
      * @param int|null $expiration
