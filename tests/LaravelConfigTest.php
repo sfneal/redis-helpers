@@ -6,7 +6,7 @@ use Illuminate\Foundation\Application;
 use Orchestra\Testbench\TestCase;
 use Sfneal\Helpers\Redis\Providers\RedisHelpersServiceProvider;
 
-class LaravelTest extends TestCase
+class LaravelConfigTest extends TestCase
 {
     /**
      * Register package service providers.
