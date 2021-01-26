@@ -63,3 +63,4 @@ All notable changes to `redis-helpers` will be documented in this file
 ## 0.8.1 - 2021-01-26 (rc)
 - fix issue with use of Redis::connection() method
 - add laravel/framework back into composer requirements
+- fix RedisCache::delete() & RedisCache::keys() methods (as well as helper functions)
