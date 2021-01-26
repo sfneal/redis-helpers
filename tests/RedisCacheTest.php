@@ -55,8 +55,8 @@ class RedisCacheTest extends TestCase
 
     public function test_get()
     {
-        $key = 'bos-37';
-        $value = 'c';
+        $key = 'bos-33';
+        $value = 'd';
         RedisCache::set($key, $value);
         $output = RedisCache::get($key);
 
@@ -65,8 +65,8 @@ class RedisCacheTest extends TestCase
 
     public function test_set()
     {
-        $key = 'bos-88';
-        $value = 'w';
+        $key = 'bos-47';
+        $value = 'd';
         $output = RedisCache::set($key, $value);
         $expected = RedisCache::get($key);
 
@@ -103,20 +103,20 @@ class RedisCacheTest extends TestCase
     public function test_delete_key()
     {
         $array = [
-            'bos-37' => 'c',
-            'bos-63' => 'w',
-            'bos-88' => 'w',
-            'pit-87' => 'c',
-            'pit-71' => 'c',
-            'pit-58' => 'd',
+            'phi-93' => 'c',
+            'phi-13' => 'w',
+            'phi-28' => 'w',
+            'pit-59' => 'c',
+            'pit-17' => 'c',
+            'pit-13' => 'd',
         ];
         RedisCache::setMany($array);
 
-        $key = 'pit-87';
+        $key = 'pit-13';
         RedisCache::delete($key);
 
-        $this->assertFalse(RedisCache::exists('pit-87'));
-        $this->assertTrue(RedisCache::missing('pit-87'));
+        $this->assertFalse(RedisCache::exists($key));
+        $this->assertTrue(RedisCache::missing($key));
     }
 
     public function test_delete_array()
