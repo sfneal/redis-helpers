@@ -4,7 +4,6 @@ namespace Sfneal\Helpers\Redis;
 
 use Closure;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Redis;
 use Sfneal\Actions\AbstractService;
 
 class RedisCache extends AbstractService
@@ -38,26 +37,6 @@ class RedisCache extends AbstractService
     public static function key(string $key): string
     {
         return self::prefix().":$key";
-    }
-
-    /**
-     * Retrieve an array of keys that begin with a prefix.
-     *
-     * @param string $prefix
-     * @return mixed list of keys without prefix
-     */
-    public static function keys(string $prefix)
-    {
-        // todo: fix this method
-        return array_map(
-            // Remove prefix from each key so it is not concatenated twice
-            function ($key) {
-                return substr($key, strlen(self::prefix()) + 1);
-            },
-
-            // List of Redis key's matching pattern
-            Redis::connection()->client()->keys(self::key($prefix.'*'))
-        );
     }
 
     /**
@@ -139,34 +118,16 @@ class RedisCache extends AbstractService
     /**
      * Delete Redis key's from the Cache.
      *
-     * @param $key array|string
+     * @param $keys array|string
      * @return mixed
      */
-    public static function delete($key)
+    public static function delete($keys)
     {
-        // todo: fix issues with not deleting?
-        // Empty array of keys to delete
-        $keys = [];
-
-        // Check if an array of keys has been passed
-        if (gettype($key) == 'array') {
-            // Recursively merge arrays of keys found matching pattern
-            foreach (array_values($key) as $value) {
-                $keys = array_merge($keys, self::keys($value));
-            }
-        } else {
-            // All keys matching pattern
-            $keys = array_merge($keys, self::keys($key));
-        }
-
-        // Remove all keys that match param patterns
-        $to_remove = array_values($keys);
-        foreach ($to_remove as $value) {
-            Cache::forget($value);
-        }
-
-        // Return array of deleted keys
-        return array_values($to_remove);
+        return collect((array) $keys)
+            ->mapWithKeys(function (string $key) {
+                return [$key => Cache::forget(self::key($key))];
+            })
+            ->toArray();
     }
 
     /**
@@ -240,7 +201,7 @@ class RedisCache extends AbstractService
      */
     public static function flush()
     {
-        return Redis::connection()->client()->flushAll();
+        return Cache::flush();
     }
 
     /**
