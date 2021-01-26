@@ -128,9 +128,9 @@ function redisIncrement(string $key, int $value = 1, int $expiration = null)
 /**
  * Flush the entire redis cache.
  *
- * @return mixed
+ * @return array
  */
-function redisFlush()
+function redisFlush(): array
 {
     return RedisCache::flush();
 }
