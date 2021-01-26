@@ -67,10 +67,11 @@ class RedisCacheTest extends TestCase
     {
         $key = 'bos-47';
         $value = 'd';
-        $output = RedisCache::set($key, $value);
+        $stored = RedisCache::set($key, $value);
         $expected = RedisCache::get($key);
 
-        $this->assertTrue($output == $expected);
+        $this->assertTrue($stored);
+        $this->assertTrue($expected == $value);
     }
 
     public function test_setMany()
@@ -93,11 +94,9 @@ class RedisCacheTest extends TestCase
         $key = 'heresanotherkey';
         $expected = 100;
         RedisCache::set($key, 'value');
-        $value = RedisCache::expire($key, 1);
+        $stored = RedisCache::expire($key, 1);
 
-        // todo: improve this by getting the ttl from the key
-        $this->assertIsString($value);
-        $this->assertTrue($value == 'value');
+        $this->assertTrue($stored);
     }
 
     public function test_delete_key()

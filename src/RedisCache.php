@@ -58,20 +58,16 @@ class RedisCache extends AbstractService
      * @param string $key
      * @param null $value
      * @param int|null $expiration
-     * @return string
+     * @return bool
      */
-    public static function set(string $key, $value = null, int $expiration = null)
+    public static function set(string $key, $value = null, int $expiration = null): bool
     {
         // Store the $value in the Cache
-        // todo: change return type to pull
-        Cache::put(
+        return Cache::put(
             self::key($key),
             $value,
             (isset($expiration) ? $expiration : self::ttl())
         );
-
-        // Return the $value
-        return $value;
     }
 
     /**
@@ -95,9 +91,9 @@ class RedisCache extends AbstractService
      *
      * @param string $key
      * @param null $expiration
-     * @return string|null
+     * @return bool
      */
-    public static function expire(string $key, $expiration = null)
+    public static function expire(string $key, $expiration = null): bool
     {
         // Use environment REDIS_KEY_EXPIRATION value if not set
         if (! $expiration) {
