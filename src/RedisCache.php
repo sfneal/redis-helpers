@@ -56,7 +56,7 @@ class RedisCache extends AbstractService
             },
 
             // List of Redis key's matching pattern
-            Redis::connection('default')->client()->keys(self::key($prefix.'*'))
+            Redis::connection()->client()->keys(self::key($prefix.'*'))
         );
     }
 
@@ -144,6 +144,7 @@ class RedisCache extends AbstractService
      */
     public static function delete($key)
     {
+        // todo: fix issues with not deleting?
         // Empty array of keys to delete
         $keys = [];
 
@@ -239,7 +240,7 @@ class RedisCache extends AbstractService
      */
     public static function flush()
     {
-        return Redis::connection('default')->client()->flushAll();
+        return Redis::connection()->client()->flushAll();
     }
 
     /**
