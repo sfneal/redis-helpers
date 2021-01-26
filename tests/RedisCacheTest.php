@@ -53,30 +53,10 @@ class RedisCacheTest extends TestCase
         $this->assertTrue($value == $expected);
     }
 
-    public function test_keys()
-    {
-        $array = [
-            'bos-37' => 'c',
-            'bos-63' => 'w',
-            'bos-88' => 'w',
-            'pit-87' => 'c',
-            'pit-71' => 'c',
-            'pit-58' => 'd',
-        ];
-        RedisCache::setMany($array);
-
-        $expected = array_keys($array);
-        $value = RedisCache::keys('bos');
-
-        $this->assertIsArray($value);
-        // todo: fix this
-//        $this->assertTrue($value == $expected);
-    }
-
     public function test_get()
     {
-        $key = 'bos-37';
-        $value = 'c';
+        $key = 'bos-33';
+        $value = 'd';
         RedisCache::set($key, $value);
         $output = RedisCache::get($key);
 
@@ -85,12 +65,13 @@ class RedisCacheTest extends TestCase
 
     public function test_set()
     {
-        $key = 'bos-88';
-        $value = 'w';
-        $output = RedisCache::set($key, $value);
+        $key = 'bos-47';
+        $value = 'd';
+        $stored = RedisCache::set($key, $value);
         $expected = RedisCache::get($key);
 
-        $this->assertTrue($output == $expected);
+        $this->assertTrue($stored);
+        $this->assertTrue($expected == $value);
     }
 
     public function test_setMany()
@@ -113,14 +94,31 @@ class RedisCacheTest extends TestCase
         $key = 'heresanotherkey';
         $expected = 100;
         RedisCache::set($key, 'value');
-        $value = RedisCache::expire($key, 1);
+        $stored = RedisCache::expire($key, 1);
 
-        // todo: improve this by getting the ttl from the key
-        $this->assertIsString($value);
-        $this->assertTrue($value == 'value');
+        $this->assertTrue($stored);
     }
 
-    public function test_delete()
+    public function test_delete_key()
+    {
+        $array = [
+            'phi-93' => 'c',
+            'phi-13' => 'w',
+            'phi-28' => 'w',
+            'pit-59' => 'c',
+            'pit-17' => 'c',
+            'pit-13' => 'd',
+        ];
+        RedisCache::setMany($array);
+
+        $key = 'pit-13';
+        RedisCache::delete($key);
+
+        $this->assertFalse(RedisCache::exists($key));
+        $this->assertTrue(RedisCache::missing($key));
+    }
+
+    public function test_delete_array()
     {
         $array = [
             'bos-37' => 'c',
@@ -132,19 +130,13 @@ class RedisCacheTest extends TestCase
         ];
         RedisCache::setMany($array);
 
-        $key = 'pit-87';
-        RedisCache::delete($key);
-        $value = RedisCache::exists('pit-87');
-
-        // todo: fix this
-        $this->assertTrue($value == 1);
-
         $keys = ['pit-71', 'pit-58'];
         RedisCache::delete($keys);
-        $value = RedisCache::exists('pit-71');
 
-        // todo: fix this
-        $this->assertTrue($value == 1);
+        foreach ($keys as $key) {
+            $this->assertFalse(RedisCache::exists($key));
+            $this->assertTrue(RedisCache::missing($key));
+        }
     }
 
     public function test_exists()

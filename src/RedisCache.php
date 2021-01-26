@@ -4,7 +4,6 @@ namespace Sfneal\Helpers\Redis;
 
 use Closure;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Redis;
 use Sfneal\Actions\AbstractService;
 
 class RedisCache extends AbstractService
@@ -41,25 +40,6 @@ class RedisCache extends AbstractService
     }
 
     /**
-     * Retrieve an array of keys that begin with a prefix.
-     *
-     * @param string $prefix
-     * @return mixed list of keys without prefix
-     */
-    public static function keys(string $prefix)
-    {
-        return array_map(
-            // Remove prefix from each key so it is not concatenated twice
-            function ($key) {
-                return substr($key, strlen(self::prefix()) + 1);
-            },
-
-            // List of Redis key's matching pattern
-            Redis::connection('default')->client()->keys(self::key($prefix.'*'))
-        );
-    }
-
-    /**
      * Get items from the cache.
      *
      * @param string $key
@@ -78,20 +58,16 @@ class RedisCache extends AbstractService
      * @param string $key
      * @param null $value
      * @param int|null $expiration
-     * @return string
+     * @return bool
      */
-    public static function set(string $key, $value = null, int $expiration = null)
+    public static function set(string $key, $value = null, int $expiration = null): bool
     {
         // Store the $value in the Cache
-        // todo: change return type to pull
-        Cache::put(
+        return Cache::put(
             self::key($key),
             $value,
             (isset($expiration) ? $expiration : self::ttl())
         );
-
-        // Return the $value
-        return $value;
     }
 
     /**
@@ -115,9 +91,9 @@ class RedisCache extends AbstractService
      *
      * @param string $key
      * @param null $expiration
-     * @return string|null
+     * @return bool
      */
-    public static function expire(string $key, $expiration = null)
+    public static function expire(string $key, $expiration = null): bool
     {
         // Use environment REDIS_KEY_EXPIRATION value if not set
         if (! $expiration) {
@@ -138,33 +114,17 @@ class RedisCache extends AbstractService
     /**
      * Delete Redis key's from the Cache.
      *
-     * @param $key array|string
-     * @return mixed
+     * @param $keys array|string
+     * @return array
      */
-    public static function delete($key)
+    public static function delete($keys): array
     {
-        // Empty array of keys to delete
-        $keys = [];
-
-        // Check if an array of keys has been passed
-        if (gettype($key) == 'array') {
-            // Recursively merge arrays of keys found matching pattern
-            foreach (array_values($key) as $value) {
-                $keys = array_merge($keys, self::keys($value));
-            }
-        } else {
-            // All keys matching pattern
-            $keys = array_merge($keys, self::keys($key));
-        }
-
-        // Remove all keys that match param patterns
-        $to_remove = array_values($keys);
-        foreach ($to_remove as $value) {
-            Cache::forget($value);
-        }
-
-        // Return array of deleted keys
-        return array_values($to_remove);
+        // Returns an array of deleted keys with success values
+        return collect((array) $keys)
+            ->mapWithKeys(function (string $key) {
+                return [$key => Cache::forget(self::key($key))];
+            })
+            ->toArray();
     }
 
     /**
@@ -223,12 +183,8 @@ class RedisCache extends AbstractService
         // Create the Key if it's missing
         self::setIfMissing($key, 0, $expiration);
 
-        // Increment the value
-        Cache::increment(self::key($key), $value);
-
-        // Return the new value
-        // todo: check if this is needed
-        return self::get($key);
+        // Increment the value & return the new value
+        return Cache::increment(self::key($key), $value);
     }
 
     /**
@@ -238,7 +194,7 @@ class RedisCache extends AbstractService
      */
     public static function flush()
     {
-        return Redis::connection('default')->client()->flushAll();
+        return Cache::flush();
     }
 
     /**
