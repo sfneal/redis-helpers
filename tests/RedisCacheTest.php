@@ -20,31 +20,12 @@ class RedisCacheTest extends TestCase
         return RedisHelpersServiceProvider::class;
     }
 
-    public function test_prefix()
-    {
-        $expected = config('redis-helpers.prefix');
-        $value = RedisCache::prefix();
-
-        $this->assertIsString($value);
-        $this->assertTrue($value == $expected);
-    }
-
     public function test_ttl()
     {
         $expected = config('redis-helpers.ttl');
         $value = RedisCache::ttl();
 
         $this->assertIsInt($value);
-        $this->assertTrue($value == $expected);
-    }
-
-    public function test_key()
-    {
-        $key = 'heresakey';
-        $expected = 'app:'.$key;
-        $value = RedisCache::key($key);
-
-        $this->assertIsString($value);
         $this->assertTrue($value == $expected);
     }
 

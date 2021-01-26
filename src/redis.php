@@ -4,17 +4,6 @@ use Illuminate\Support\Facades\View;
 use Sfneal\Helpers\Redis\RedisCache;
 
 /**
- * Retrieve a formatted RedisKey with the environment prefix included.
- *
- * @param string $key
- * @return string
- */
-function redisKey(string $key): string
-{
-    return RedisCache::key($key);
-}
-
-/**
  * Get items from the cache.
  *
  * @param string $key

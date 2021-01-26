@@ -27,15 +27,6 @@ class LaravelConfigTest extends TestCase
     }
 
     /** @test */
-    public function config_prefix()
-    {
-        // Confirm the default config 'prefix' key is correct
-        $output = config('redis-helpers.prefix');
-        $expected = 'app';
-        $this->assertTrue($output == $expected);
-    }
-
-    /** @test */
     public function config_ttl()
     {
         // Confirm the default config 'prefix' key is correct

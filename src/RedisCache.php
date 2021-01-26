@@ -9,16 +9,6 @@ use Sfneal\Actions\AbstractService;
 class RedisCache extends AbstractService
 {
     /**
-     * Retrieve the Redis Key prefix from the config.
-     *
-     * @return string
-     */
-    public static function prefix(): string
-    {
-        return config('redis-helpers.prefix', 'app');
-    }
-
-    /**
      * Retrieve the Redis Key TTL from the config.
      *
      * @return int
@@ -29,17 +19,6 @@ class RedisCache extends AbstractService
     }
 
     /**
-     * Retrieve a formatted RedisKey with the environment prefix included.
-     *
-     * @param string $key
-     * @return string
-     */
-    public static function key(string $key): string
-    {
-        return self::prefix().":$key";
-    }
-
-    /**
      * Get items from the cache.
      *
      * @param string $key
@@ -47,7 +26,7 @@ class RedisCache extends AbstractService
      */
     public static function get(string $key)
     {
-        return Cache::get(self::key($key));
+        return Cache::get($key);
     }
 
     /**
@@ -63,8 +42,9 @@ class RedisCache extends AbstractService
     public static function set(string $key, $value = null, int $expiration = null): bool
     {
         // Store the $value in the Cache
+        // todo: optimize expiration call
         return Cache::put(
-            self::key($key),
+            $key,
             $value,
             (isset($expiration) ? $expiration : self::ttl())
         );
@@ -122,7 +102,7 @@ class RedisCache extends AbstractService
         // Returns an array of deleted keys with success values
         return collect((array) $keys)
             ->mapWithKeys(function (string $key) {
-                return [$key => Cache::forget(self::key($key))];
+                return [$key => Cache::forget($key)];
             })
             ->toArray();
     }
@@ -135,7 +115,7 @@ class RedisCache extends AbstractService
      */
     public static function exists(string $key): bool
     {
-        return Cache::has(self::key($key));
+        return Cache::has($key);
     }
 
     /**
@@ -146,7 +126,7 @@ class RedisCache extends AbstractService
      */
     public static function missing(string $key): bool
     {
-        return Cache::missing(self::key($key));
+        return Cache::missing($key);
     }
 
     /**
@@ -184,7 +164,7 @@ class RedisCache extends AbstractService
         self::setIfMissing($key, 0, $expiration);
 
         // Increment the value & return the new value
-        return Cache::increment(self::key($key), $value);
+        return Cache::increment($key, $value);
     }
 
     /**
