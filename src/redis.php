@@ -6,23 +6,23 @@ use Sfneal\Helpers\Redis\RedisCache;
 /**
  * Retrieve a formatted RedisKey with the environment prefix included.
  *
- * @param string $redis_key
+ * @param string $key
  * @return string
  */
-function redisKey(string $redis_key)
+function redisKey(string $key): string
 {
-    return RedisCache::key($redis_key);
+    return RedisCache::key($key);
 }
 
 /**
  * Get items from the cache.
  *
- * @param string $redis_key
+ * @param string $key
  * @return mixed
  */
-function redisGet(string $redis_key)
+function redisGet(string $key)
 {
-    return RedisCache::get($redis_key);
+    return RedisCache::get($key);
 }
 
 /**
@@ -30,99 +30,99 @@ function redisGet(string $redis_key)
  *
  * Use's environment's REDIS_KEY_EXPIRATION value if $expiration is null.
  *
- * @param string $redis_key
+ * @param string $key
  * @param mixed|null $value
  * @param int|null $expiration
  * @return mixed|null $value
  */
-function redisSet(string $redis_key, $value = null, $expiration = null)
+function redisSet(string $key, $value = null, $expiration = null)
 {
-    return RedisCache::set($redis_key, $value, $expiration);
+    return RedisCache::set($key, $value, $expiration);
 }
 
 /**
  * Add a TTL attribute (time to live or time til expiration) to a Redis key.
  *
- * @param string $redis_key
+ * @param string $key
  * @param null $expiration
  * @return mixed
  */
-function redisExpire(string $redis_key, $expiration = null)
+function redisExpire(string $key, $expiration = null)
 {
-    return RedisCache::expire($redis_key, $expiration);
+    return RedisCache::expire($key, $expiration);
 }
 
 /**
  * Delete Redis key's from the Cache.
  *
- * @param $redis_key array|string
+ * @param $key array|string
  * @return array
  */
-function redisDelete($redis_key)
+function redisDelete($key): array
 {
-    return RedisCache::delete($redis_key);
+    return RedisCache::delete($key);
 }
 
 /**
  * Determine if a redis key exists in the cache.
  *
- * @param string $redis_key
+ * @param string $key
  * @return bool
  */
-function redisExists(string $redis_key)
+function redisExists(string $key): bool
 {
-    return RedisCache::exists($redis_key);
+    return RedisCache::exists($key);
 }
 
 /**
  * Determine if a redis key is missing from the cache.
  *
- * @param string $redis_key
+ * @param string $key
  * @return bool
  */
-function redisMissing(string $redis_key)
+function redisMissing(string $key): bool
 {
-    return RedisCache::missing($redis_key);
+    return RedisCache::missing($key);
 }
 
 /**
  * Render a view & cache its output for reuse.
  *
- * @param string $redis_key
+ * @param string $key
  * @param string $view
  * @param array $data
  * @param int|null $expiration
  * @return mixed|null
  */
-function redisCacheView(string $redis_key, string $view, array $data, int $expiration = null)
+function redisCacheView(string $key, string $view, array $data, int $expiration = null)
 {
-    return RedisCache::set($redis_key, View::make($view, $data)->render(), $expiration);
+    return RedisCache::set($key, View::make($view, $data)->render(), $expiration);
 }
 
 /**
  * Create a Redis Key with a null value if it is missing.
  *
- * @param string $redis_key
+ * @param string $key
  * @param null $value
  * @param int|null $expiration
  * @return bool
  */
-function redisCreateIfMissing(string $redis_key, $value = null, int $expiration = null): bool
+function redisCreateIfMissing(string $key, $value = null, int $expiration = null): bool
 {
-    return RedisCache::setIfMissing($redis_key, $value, $expiration);
+    return RedisCache::setIfMissing($key, $value, $expiration);
 }
 
 /**
  * Increment a Redis Key's value & return the new value.
  *
- * @param string $redis_key
+ * @param string $key
  * @param int $value
  * @param int|null $expiration
  * @return mixed
  */
-function redisIncrement(string $redis_key, int $value = 1, int $expiration = null)
+function redisIncrement(string $key, int $value = 1, int $expiration = null)
 {
-    return RedisCache::increment($redis_key, $value, $expiration);
+    return RedisCache::increment($key, $value, $expiration);
 }
 
 /**
@@ -140,7 +140,7 @@ function redisFlush()
  *
  * @return array
  */
-function redisClearCache()
+function redisClearCache(): array
 {
     return RedisCache::clear();
 }

@@ -115,10 +115,11 @@ class RedisCache extends AbstractService
      * Delete Redis key's from the Cache.
      *
      * @param $keys array|string
-     * @return mixed
+     * @return array
      */
-    public static function delete($keys)
+    public static function delete($keys): array
     {
+        // Returns an array of deleted keys with success values
         return collect((array) $keys)
             ->mapWithKeys(function (string $key) {
                 return [$key => Cache::forget(self::key($key))];
