@@ -186,12 +186,8 @@ class RedisCache extends AbstractService
         // Create the Key if it's missing
         self::setIfMissing($key, 0, $expiration);
 
-        // Increment the value
-        Cache::increment(self::key($key), $value);
-
-        // Return the new value
-        // todo: check if this is needed
-        return self::get($key);
+        // Increment the value & return the new value
+        return Cache::increment(self::key($key), $value);
     }
 
     /**
