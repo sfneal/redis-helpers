@@ -15,17 +15,6 @@ function redisKey(string $redis_key)
 }
 
 /**
- * Retrieve an array of keys that begin with a prefix.
- *
- * @param string $redis_key_prefix
- * @return mixed list of keys without prefix
- */
-function redisKeys(string $redis_key_prefix)
-{
-    return RedisCache::keys($redis_key_prefix);
-}
-
-/**
  * Get items from the cache.
  *
  * @param string $redis_key
