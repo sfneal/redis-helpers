@@ -60,8 +60,13 @@ All notable changes to `redis-helpers` will be documented in this file
 - add RedisCacheTest for testing RedisCache functionality
 
 
-## 0.8.1 - 2021-01-26 (rc)
-- fix issue with use of Redis::connection() method
+## 0.8.1 - 2021-01-26
 - add laravel/framework back into composer requirements
 - fix RedisCache::delete() & RedisCache::keys() methods (as well as helper functions)
 - optimize type hinting
+- fix issue with use of Redis::connection() method
+
+
+## 1.0.0 - 2021-01-26
+- initial production release
+- add type hinting to RedisCache::flush & redisFlush
