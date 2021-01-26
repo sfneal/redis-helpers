@@ -160,4 +160,27 @@ class RedisCacheTest extends TestCase
         $output = RedisCache::increment($key);
         $this->assertTrue($output == 2);
     }
+
+    public function test_flush()
+    {
+        $array = [
+            'bos-37' => 'c',
+            'bos-63' => 'w',
+            'bos-88' => 'w',
+            'pit-87' => 'c',
+            'pit-71' => 'c',
+            'pit-58' => 'd',
+        ];
+        RedisCache::setMany($array);
+
+        foreach ($array as $key => $value) {
+            $this->assertTrue(RedisCache::exists($key));
+        }
+
+        RedisCache::flush();
+
+        foreach ($array as $key => $value) {
+            $this->assertTrue(RedisCache::missing($key));
+        }
+    }
 }
