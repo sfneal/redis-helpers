@@ -10,11 +10,6 @@ use Sfneal\Helpers\Redis\RedisCache;
 class RedisCacheTest extends TestCase
 {
     /**
-     * @var RedisCache
-     */
-    protected $redis;
-
-    /**
      * Register package service providers.
      *
      * @param Application $app
