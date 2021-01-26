@@ -200,9 +200,9 @@ class RedisCache extends AbstractService
     /**
      * Flush the redis cache of all keys with environment's prefix.
      *
-     * @return mixed
+     * @return array
      */
-    public static function clear()
+    public static function clear(): array
     {
         return self::delete('');
     }

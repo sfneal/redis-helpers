@@ -9,8 +9,6 @@
 
 Redis helper functions for improved Redis cache transactions with PHP applications
 
-
-
 ## Installation
 
 You can install the package via composer:
