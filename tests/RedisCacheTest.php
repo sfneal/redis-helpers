@@ -2,24 +2,10 @@
 
 namespace Sfneal\Helpers\Redis\Tests;
 
-use Illuminate\Foundation\Application;
-use Orchestra\Testbench\TestCase;
-use Sfneal\Helpers\Redis\Providers\RedisHelpersServiceProvider;
 use Sfneal\Helpers\Redis\RedisCache;
 
 class RedisCacheTest extends TestCase
 {
-    /**
-     * Register package service providers.
-     *
-     * @param Application $app
-     * @return array|string
-     */
-    protected function getPackageProviders($app)
-    {
-        return RedisHelpersServiceProvider::class;
-    }
-
     public function test_ttl()
     {
         $expected = config('redis-helpers.ttl');

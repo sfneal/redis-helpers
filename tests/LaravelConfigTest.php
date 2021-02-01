@@ -2,23 +2,8 @@
 
 namespace Sfneal\Helpers\Redis\Tests;
 
-use Illuminate\Foundation\Application;
-use Orchestra\Testbench\TestCase;
-use Sfneal\Helpers\Redis\Providers\RedisHelpersServiceProvider;
-
 class LaravelConfigTest extends TestCase
 {
-    /**
-     * Register package service providers.
-     *
-     * @param Application $app
-     * @return array|string
-     */
-    protected function getPackageProviders($app)
-    {
-        return RedisHelpersServiceProvider::class;
-    }
-
     /** @test */
     public function config_is_accessible()
     {
