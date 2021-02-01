@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Sfneal\Helpers\Redis\Tests;
 
 use Illuminate\Foundation\Application;
