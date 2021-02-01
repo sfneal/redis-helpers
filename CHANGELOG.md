@@ -73,5 +73,9 @@ All notable changes to `redis-helpers` will be documented in this file
 
 
 ## 1.1.0 - 2021-01-26
-- cut use of 'prefix' config key & RedisCache::key() method
 - add test methods for untested methods
+- cut use of 'prefix' config key & RedisCache::key() method
+
+
+## 1.1.1 - 2021-02-01
+- fix return type hinting in redisFlush() helper function
