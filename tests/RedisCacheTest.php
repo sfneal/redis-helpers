@@ -6,6 +6,16 @@ use Sfneal\Helpers\Redis\RedisCache;
 
 class RedisCacheTest extends TestCase
 {
+    public function test_defaultTTL()
+    {
+        $key = 'bos:52:pos';
+        RedisCache::set($key, 'c');
+        $ttl = RedisCache::ttl($key);
+
+        $this->assertIsInt($ttl);
+        $this->assertEquals(config('redis-helpers.ttl'), $ttl);
+    }
+
     public function test_keys()
     {
         $array = [
@@ -67,10 +77,11 @@ class RedisCacheTest extends TestCase
     public function test_expire()
     {
         $key = 'heresanotherkey';
-        $expected = 100;
+        $ttl = 100;
         RedisCache::set($key, 'value');
-        $stored = RedisCache::expire($key, 1);
+        $stored = RedisCache::expire($key, $ttl);
 
+        $this->assertEquals($ttl, RedisCache::ttl($key));
         $this->assertTrue($stored);
     }
 

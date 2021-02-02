@@ -20,6 +20,28 @@ class RedisCache extends AbstractService
     }
 
     /**
+     * Retrieve a redis key with the application prefix prepended
+     *
+     * @param string $key
+     * @return string
+     */
+    private static function keyWithPrefix(string $key): string
+    {
+        return config('cache.prefix').":{$key}";
+    }
+
+    /**
+     * Retrieve a key's time to live in seconds
+     *
+     * @param string $key
+     * @return int
+     */
+    public static function ttl(string $key): int
+    {
+        return Redis::connection()->command('TTL', [self::keyWithPrefix($key)]);
+    }
+
+    /**
      * Retrieve an array of keys that begin with a prefix.
      *
      * @param string $prefix
@@ -36,7 +58,7 @@ class RedisCache extends AbstractService
             // List of Redis key's matching pattern
             Redis::connection()
                 ->client()
-                ->keys(config('cache.prefix').":{$prefix}*")
+                ->keys(self::keyWithPrefix($prefix.'*'))
         );
     }
 
