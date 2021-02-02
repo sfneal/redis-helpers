@@ -58,18 +58,19 @@ class NestedKeysTest extends TestCase
     public function test_delete_key()
     {
         $array = [
-            'bos:63#pos' => 'w',
-            'bos:63#name_first' => 'Brad',
-            'bos:63#name_last' => 'Marchand',
-            'bos:63#age' => 32,
+            'bos:63:pos' => 'w',
+            'bos:63:name_first' => 'Brad',
+            'bos:63:name_last' => 'Marchand',
+            'bos:63:age' => 32,
         ];
         RedisCache::setMany($array);
 
-        $key = 'bos:63#age';
+        $key = 'bos:63:pos';
+        $this->assertTrue(RedisCache::exists($key));
         RedisCache::delete($key);
 
         $this->assertFalse(RedisCache::exists($key));
-        $this->assertTrue(RedisCache::exists('bos:63#name_first'));
+        $this->assertTrue(RedisCache::exists('bos:63:name_first'));
         $this->assertTrue(RedisCache::missing($key));
     }
 
@@ -84,7 +85,7 @@ class NestedKeysTest extends TestCase
         RedisCache::setMany($array);
 
         $key = 'bos:46';
-        RedisCache::delete($key);
+        $deleted = RedisCache::delete($key);
 
         $this->assertFalse(RedisCache::exists($key));
 

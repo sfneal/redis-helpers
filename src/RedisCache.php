@@ -34,7 +34,9 @@ class RedisCache extends AbstractService
             },
 
             // List of Redis key's matching pattern
-            Redis::connection()->client()->keys(config('cache.prefix') . ':' . $prefix . '*')
+            Redis::connection()
+                ->client()
+                ->keys(config('cache.prefix') . ":{$prefix}*")
         );
     }
 
@@ -121,6 +123,9 @@ class RedisCache extends AbstractService
     {
         // Returns an array of deleted keys with success values
         return collect((array) $keys)
+            ->flatMap(function (string $key) {
+                return self::keys($key);
+            })
             ->mapWithKeys(function (string $key) {
                 return [$key => Cache::forget($key)];
             })
