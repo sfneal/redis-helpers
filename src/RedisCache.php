@@ -4,6 +4,7 @@ namespace Sfneal\Helpers\Redis;
 
 use Closure;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Redis;
 use Sfneal\Actions\AbstractService;
 
 class RedisCache extends AbstractService
@@ -16,6 +17,25 @@ class RedisCache extends AbstractService
     public static function ttl(): int
     {
         return config('redis-helpers.ttl', 3600);
+    }
+
+    /**
+     * Retrieve an array of keys that begin with a prefix.
+     *
+     * @param string $prefix
+     * @return mixed list of keys without prefix
+     */
+    public static function keys(string $prefix = '')
+    {
+        return array_map(
+            // Remove prefix from each key so it is not concatenated twice
+            function ($key) {
+                return substr($key, strlen(config('cache.prefix')) + 1);
+            },
+
+            // List of Redis key's matching pattern
+            Redis::connection()->client()->keys(config('cache.prefix') . ':' . $prefix . '*')
+        );
     }
 
     /**
