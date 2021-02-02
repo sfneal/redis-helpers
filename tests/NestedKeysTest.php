@@ -88,19 +88,14 @@ class NestedKeysTest extends TestCase
 
         $this->assertFalse(RedisCache::exists($key));
 
-        // todo: fix this so that the nested keys are deleted
-//        foreach (array_keys($array) as $key) {
-//            $this->assertTrue(RedisCache::missing($key));
-//        }
+        foreach (array_keys($array) as $key) {
+            $this->assertTrue(RedisCache::missing($key));
+        }
     }
 
     public function test_delete_array()
     {
-        $array = [
-            'bos:73#pos' => 'd',
-            'bos:73#name_first' => 'Charlie',
-            'bos:73#name_last' => 'McAvoy',
-            'bos:73#age' => 23,
+        $toDelete = [
             'bos:25#pos' => 'd',
             'bos:25#name_first' => 'Brandon',
             'bos:25#name_last' => 'Carlo',
@@ -110,14 +105,25 @@ class NestedKeysTest extends TestCase
             'bos:55#name_last' => 'Lauzon',
             'bos:55#age' => 24,
         ];
-        RedisCache::setMany($array);
+        $keep = [
+            'bos:73#pos' => 'd',
+            'bos:73#name_first' => 'Charlie',
+            'bos:73#name_last' => 'McAvoy',
+            'bos:73#age' => 23,
+        ];
+        RedisCache::setMany(array_merge($toDelete, $keep));
 
         $keys = ['bos:25', 'bos:55'];
         RedisCache::delete($keys);
 
-        foreach ($keys as $key) {
+        foreach (array_keys($toDelete) as $key) {
             $this->assertFalse(RedisCache::exists($key));
             $this->assertTrue(RedisCache::missing($key));
+        }
+
+        foreach (array_keys($keep) as $key) {
+            $this->assertTrue(RedisCache::exists($key));
+            $this->assertFalse(RedisCache::missing($key));
         }
     }
 
