@@ -20,7 +20,7 @@ class RedisCache extends AbstractService
     }
 
     /**
-     * Retrieve a redis key with the application prefix prepended
+     * Retrieve a redis key with the application prefix prepended.
      *
      * @param string $key
      * @return string
@@ -31,7 +31,7 @@ class RedisCache extends AbstractService
     }
 
     /**
-     * Retrieve a key's time to live in seconds
+     * Retrieve a key's time to live in seconds.
      *
      * @param string $key
      * @return int
