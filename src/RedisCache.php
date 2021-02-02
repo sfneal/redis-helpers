@@ -36,7 +36,7 @@ class RedisCache extends AbstractService
             // List of Redis key's matching pattern
             Redis::connection()
                 ->client()
-                ->keys(config('cache.prefix') . ":{$prefix}*")
+                ->keys(config('cache.prefix').":{$prefix}*")
         );
     }
 
