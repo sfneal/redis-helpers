@@ -79,3 +79,10 @@ All notable changes to `redis-helpers` will be documented in this file
 
 ## 1.1.1 - 2021-02-01
 - fix return type hinting in redisFlush() helper function
+
+
+## 1.2.0 - 2021-02-02
+- add josiasmontag/laravel-redis-mock to composer dev requirements for creating a better Redis conenction mock
+- add call to RedisCache::flush() in TestCase::tearDown() to clear any previously cached values 
+- add RedisCache::keys() method that lists keys in the Redis cache
+- add ability to delete nested keys to RedisCache::delete() method
