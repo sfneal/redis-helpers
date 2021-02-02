@@ -45,9 +45,10 @@ class RedisCache extends AbstractService
      * Retrieve an array of keys that begin with a prefix.
      *
      * @param string $prefix
+     * @param bool $wildcard
      * @return mixed list of keys without prefix
      */
-    public static function keys(string $prefix = '')
+    public static function keys(string $prefix = '', bool $wildcard = true)
     {
         return array_map(
             // Remove prefix from each key so it is not concatenated twice
@@ -58,7 +59,7 @@ class RedisCache extends AbstractService
             // List of Redis key's matching pattern
             Redis::connection()
                 ->client()
-                ->keys(self::keyWithPrefix($prefix.'*'))
+                ->keys(self::keyWithPrefix($prefix . ($wildcard ? '*' : '')))
         );
     }
 
@@ -139,14 +140,15 @@ class RedisCache extends AbstractService
      * Delete Redis key's from the Cache.
      *
      * @param $keys array|string
+     * @param bool $children
      * @return array
      */
-    public static function delete($keys): array
+    public static function delete($keys, bool $children = true): array
     {
         // Returns an array of deleted keys with success values
         return collect((array) $keys)
-            ->flatMap(function (string $key) {
-                return self::keys($key);
+            ->flatMap(function (string $key) use ($children) {
+                return self::keys($key, $children);
             })
             ->mapWithKeys(function (string $key) {
                 return [$key => Cache::forget($key)];
