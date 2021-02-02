@@ -6,15 +6,6 @@ use Sfneal\Helpers\Redis\RedisCache;
 
 class RedisCacheTest extends TestCase
 {
-    public function test_ttl()
-    {
-        $expected = config('redis-helpers.ttl');
-        $value = RedisCache::ttl();
-
-        $this->assertIsInt($value);
-        $this->assertTrue($value == $expected);
-    }
-
     public function test_keys()
     {
         $array = [

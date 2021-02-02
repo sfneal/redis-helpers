@@ -14,7 +14,7 @@ class RedisCache extends AbstractService
      *
      * @return int
      */
-    public static function ttl(): int
+    private static function defaultTTL(): int
     {
         return config('redis-helpers.ttl', 3600);
     }
@@ -68,7 +68,7 @@ class RedisCache extends AbstractService
         return Cache::put(
             $key,
             $value,
-            (isset($expiration) ? $expiration : self::ttl())
+            (isset($expiration) ? $expiration : self::defaultTTL())
         );
     }
 
@@ -99,7 +99,7 @@ class RedisCache extends AbstractService
     {
         // Use environment REDIS_KEY_EXPIRATION value if not set
         if (! $expiration) {
-            $expiration = self::ttl();
+            $expiration = self::defaultTTL();
         }
 
         // Create a key value pair with a null value and a TTL if the key is missing
