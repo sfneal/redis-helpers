@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Sfneal\Helpers\Redis\Tests;
-
 
 use Illuminate\Support\Facades\Redis;
 use Lunaweb\RedisMock\MockPredisConnection;
@@ -18,7 +16,6 @@ class RedisMockTest extends TestCase
     {
         Redis::set('key', 'test');
         $this->assertEquals('test', Redis::get('key'));
-
     }
 
     public function test_pipeline()
@@ -30,5 +27,4 @@ class RedisMockTest extends TestCase
 
         $this->assertEquals('test2', Redis::get('key2'));
     }
-
 }
