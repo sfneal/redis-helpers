@@ -91,3 +91,8 @@ All notable changes to `redis-helpers` will be documented in this file
 
 ## 1.2.1 - 2021-02-02
 - add ability to specify weather to delete children when deleting a parent key
+
+
+## 1.2.2 - 2021-03-30
+- fix sfneal/actions version syntax
+- fix Travis CI config to enable code coverage uploads
