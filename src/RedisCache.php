@@ -5,9 +5,8 @@ namespace Sfneal\Helpers\Redis;
 use Closure;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
-use Sfneal\Actions\AbstractService;
 
-class RedisCache extends AbstractService
+class RedisCache
 {
     /**
      * Retrieve the Redis Key TTL from the config.

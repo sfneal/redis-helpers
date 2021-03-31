@@ -96,3 +96,7 @@ All notable changes to `redis-helpers` will be documented in this file
 ## 1.2.2 - 2021-03-30
 - fix sfneal/actions version syntax
 - fix Travis CI config to enable code coverage uploads
+
+
+## 1.3.0 - 2021-03-31
+- cut sfneal/actions composer requirement
