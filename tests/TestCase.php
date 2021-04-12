@@ -28,9 +28,9 @@ class TestCase extends OrchestraTestCase
      * Register package service providers.
      *
      * @param Application $app
-     * @return array|string
+     * @return array
      */
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
         return [
             RedisHelpersServiceProvider::class,
