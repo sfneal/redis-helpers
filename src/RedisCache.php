@@ -29,6 +29,7 @@ class RedisCache
         if (! is_null(config('cache.prefix'))) {
             return config('cache.prefix').":{$key}";
         }
+
         return $key;
     }
 
