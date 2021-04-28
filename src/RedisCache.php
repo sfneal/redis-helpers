@@ -26,7 +26,11 @@ class RedisCache
      */
     private static function keyWithPrefix(string $key): string
     {
-        return config('cache.prefix').":{$key}";
+        if (! is_null(config('cache.prefix'))) {
+            return config('cache.prefix').":{$key}";
+        }
+
+        return $key;
     }
 
     /**

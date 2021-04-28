@@ -6,7 +6,6 @@ use Illuminate\Foundation\Application;
 use Lunaweb\RedisMock\Providers\RedisMockServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Sfneal\Helpers\Redis\Providers\RedisHelpersServiceProvider;
-use Sfneal\Helpers\Redis\RedisCache;
 
 class TestCase extends OrchestraTestCase
 {
@@ -28,24 +27,13 @@ class TestCase extends OrchestraTestCase
      * Register package service providers.
      *
      * @param Application $app
-     * @return array|string
+     * @return array
      */
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
         return [
             RedisHelpersServiceProvider::class,
             RedisMockServiceProvider::class,
         ];
-    }
-
-    /**
-     * Clean up the testing environment before the next test.
-     *
-     * @return void
-     */
-    protected function tearDown(): void
-    {
-        RedisCache::flush();
-        parent::tearDown();
     }
 }

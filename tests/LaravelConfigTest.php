@@ -18,6 +18,6 @@ class LaravelConfigTest extends TestCase
         $output = config('redis-helpers.ttl');
         $expected = 3600;
         $this->assertIsInt($output);
-        $this->assertTrue($output == $expected);
+        $this->assertSame($expected, $output);
     }
 }
