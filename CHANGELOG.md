@@ -100,3 +100,9 @@ All notable changes to `redis-helpers` will be documented in this file
 
 ## 1.3.0 - 2021-03-31
 - cut sfneal/actions composer requirement
+
+
+## 1.3.1 - 2021-04-28
+- cut sfneal/actions composer requirement
+- add conditional to `keyWithPrefix()` to prevent adding a prefix when none is set
+- optimize type hinting
