@@ -106,3 +106,7 @@ All notable changes to `redis-helpers` will be documented in this file
 - cut sfneal/actions composer requirement
 - add conditional to `keyWithPrefix()` to prevent adding a prefix when none is set
 - optimize type hinting
+
+
+## 1.3.2 - 2021-07-12
+- refactor test suite into `Feature` & `Unit` namespaces

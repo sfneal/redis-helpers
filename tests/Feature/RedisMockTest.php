@@ -1,9 +1,10 @@
 <?php
 
-namespace Sfneal\Helpers\Redis\Tests;
+namespace Sfneal\Helpers\Redis\Tests\Feature;
 
 use Illuminate\Support\Facades\Redis;
 use Lunaweb\RedisMock\MockPredisConnection;
+use Sfneal\Helpers\Redis\Tests\TestCase;
 
 class RedisMockTest extends TestCase
 {
