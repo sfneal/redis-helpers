@@ -1,8 +1,9 @@
 <?php
 
-namespace Sfneal\Helpers\Redis\Tests;
+namespace Sfneal\Helpers\Redis\Tests\Unit;
 
 use Sfneal\Helpers\Redis\RedisCache;
+use Sfneal\Helpers\Redis\Tests\TestCase;
 
 class RedisCacheTest extends TestCase
 {
