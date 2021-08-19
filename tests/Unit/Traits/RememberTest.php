@@ -6,7 +6,10 @@ use Sfneal\Helpers\Redis\RedisCache;
 
 trait RememberTest
 {
-    public function test_remember()
+    /**
+     * @test
+     */
+    public function remember()
     {
         $key = 'keytoremember';
         RedisCache::remember($key, 100, function () {
@@ -16,7 +19,7 @@ trait RememberTest
         $this->assertTrue(RedisCache::exists($key));
     }
 
-    public function test_rememberForever()
+    public function remember_forever()
     {
         $key = 'keytorememberforever';
         RedisCache::rememberForever($key, function () {

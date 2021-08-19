@@ -6,7 +6,10 @@ use Sfneal\Helpers\Redis\RedisCache;
 
 trait GetTest
 {
-    public function test_get()
+    /**
+     * @test
+     */
+    public function get_keys_value()
     {
         $key = 'bos-33';
         $value = 'd';

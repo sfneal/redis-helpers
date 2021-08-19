@@ -6,7 +6,10 @@ use Sfneal\Helpers\Redis\RedisCache;
 
 trait ExistsTest
 {
-    public function test_exists()
+    /**
+     * @test
+     */
+    public function key_exists()
     {
         $key = 'bos-14';
         $value = 'w';

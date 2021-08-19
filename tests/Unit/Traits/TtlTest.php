@@ -6,7 +6,10 @@ use Sfneal\Helpers\Redis\RedisCache;
 
 trait TtlTest
 {
-    public function test_defaultTTL()
+    /**
+     * @test
+     */
+    public function default_ttl()
     {
         $key = 'bos:52:pos';
         RedisCache::set($key, 'c');
@@ -16,7 +19,10 @@ trait TtlTest
         $this->assertEquals(config('redis-helpers.ttl'), $ttl);
     }
 
-    public function test_expire()
+    /**
+     * @test
+     */
+    public function expire_key()
     {
         $key = 'heresanotherkey';
         $ttl = 100;

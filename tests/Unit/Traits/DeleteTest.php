@@ -6,7 +6,10 @@ use Sfneal\Helpers\Redis\RedisCache;
 
 trait DeleteTest
 {
-    public function test_delete_key()
+    /**
+     * @test
+     */
+    public function delete_single_key()
     {
         $array = [
             'phi-93' => 'c',
@@ -25,7 +28,10 @@ trait DeleteTest
         $this->assertTrue(RedisCache::missing($key));
     }
 
-    public function test_delete_array()
+    /**
+     * @test
+     */
+    public function delete_multiple_keys()
     {
         $array = [
             'bos-37' => 'c',
@@ -46,7 +52,10 @@ trait DeleteTest
         }
     }
 
-    public function test_flush()
+    /**
+     * @test
+     */
+    public function flush_cache()
     {
         $array = [
             'bos-37' => 'c',

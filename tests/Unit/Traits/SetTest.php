@@ -6,7 +6,10 @@ use Sfneal\Helpers\Redis\RedisCache;
 
 trait SetTest
 {
-    public function test_set()
+    /**
+     * @test
+     */
+    public function set_key_value_pair()
     {
         $key = 'bos-47';
         $value = 'd';
@@ -17,7 +20,10 @@ trait SetTest
         $this->assertTrue($expected == $value);
     }
 
-    public function test_setMany()
+    /**
+     * @test
+     */
+    public function set_multiple_key_value_pair()
     {
         $array = [
             'bos-37' => 'c',
@@ -32,7 +38,10 @@ trait SetTest
         $this->assertTrue($output == array_values($array));
     }
 
-    public function test_setIfMissing()
+    /**
+     * @test
+     */
+    public function set_if_key_is_missing()
     {
         $key = 'bos-14';
         $value = 'w';
@@ -46,7 +55,10 @@ trait SetTest
         $this->assertTrue($output == false);
     }
 
-    public function test_increment()
+    /**
+     * @test
+     */
+    public function increment_value()
     {
         $key = 'bos-54';
         $value = 1;

@@ -6,7 +6,10 @@ use Sfneal\Helpers\Redis\RedisCache;
 
 trait KeysTest
 {
-    public function test_keys()
+    /**
+     * @test
+     */
+    public function find_keys_matching_pattern()
     {
         $array = [
             'bos:3#pos' => 'c',
