@@ -16,6 +16,6 @@ trait GetTest
         RedisCache::set($key, $value);
         $output = RedisCache::get($key);
 
-        $this->assertTrue($value == $output);
+        $this->assertSame($value, $output);
     }
 }

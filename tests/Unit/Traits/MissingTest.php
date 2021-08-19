@@ -12,8 +12,8 @@ trait MissingTest
     public function is_key_missing()
     {
         $key = 'bos-99';
-        $expected = RedisCache::missing($key);
+        $missing = RedisCache::missing($key);
 
-        $this->assertTrue($expected == true);
+        $this->assertTrue($missing);
     }
 }

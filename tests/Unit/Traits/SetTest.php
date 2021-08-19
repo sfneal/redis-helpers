@@ -14,10 +14,10 @@ trait SetTest
         $key = 'bos-47';
         $value = 'd';
         $stored = RedisCache::set($key, $value);
-        $expected = RedisCache::get($key);
+        $output = RedisCache::get($key);
 
         $this->assertTrue($stored);
-        $this->assertTrue($expected == $value);
+        $this->assertSame($value, $output);
     }
 
     /**
@@ -35,7 +35,7 @@ trait SetTest
         ];
         $output = RedisCache::setMany($array);
 
-        $this->assertTrue($output == array_values($array));
+        $this->assertSame(array_values($array), $output);
     }
 
     /**
@@ -52,7 +52,7 @@ trait SetTest
 
         $output = RedisCache::setIfMissing($key, $value);
 
-        $this->assertTrue($output == false);
+        $this->assertFalse($output);
     }
 
     /**
@@ -69,6 +69,6 @@ trait SetTest
         $this->assertTrue($output == 1);
 
         $output = RedisCache::increment($key);
-        $this->assertTrue($output == 2);
+        $this->assertSame(2, $output);
     }
 }

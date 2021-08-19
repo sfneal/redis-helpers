@@ -24,8 +24,8 @@ trait DeleteTest
         $key = 'pit-13';
         RedisCache::delete($key);
 
-        $this->assertFalse(RedisCache::exists($key));
-        $this->assertTrue(RedisCache::missing($key));
+        $this->assertFalse(RedisCache::exists($key), "'{$key}' does exist.");
+        $this->assertTrue(RedisCache::missing($key), "'{$key}' is not missing.");
     }
 
     /**
@@ -47,8 +47,8 @@ trait DeleteTest
         RedisCache::delete($keys);
 
         foreach ($keys as $key) {
-            $this->assertFalse(RedisCache::exists($key));
-            $this->assertTrue(RedisCache::missing($key));
+            $this->assertFalse(RedisCache::exists($key), "'{$key}' does exist.");
+            $this->assertTrue(RedisCache::missing($key), "'{$key}' is not missing.");
         }
     }
 
@@ -68,13 +68,13 @@ trait DeleteTest
         RedisCache::setMany($array);
 
         foreach ($array as $key => $value) {
-            $this->assertTrue(RedisCache::exists($key));
+            $this->assertTrue(RedisCache::exists($key), "'{$key}' does not exist.");
         }
 
         RedisCache::flush();
 
         foreach ($array as $key => $value) {
-            $this->assertTrue(RedisCache::missing($key));
+            $this->assertTrue(RedisCache::missing($key), "'{$key}' is not missing.");
         }
     }
 }

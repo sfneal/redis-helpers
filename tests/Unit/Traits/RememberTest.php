@@ -16,7 +16,7 @@ trait RememberTest
             return md5(random_int(1000, 2000));
         });
 
-        $this->assertTrue(RedisCache::exists($key));
+        $this->assertTrue(RedisCache::exists($key), "'{$key}' does not exist");
     }
 
     public function remember_forever()
@@ -26,6 +26,6 @@ trait RememberTest
             return md5(random_int(2000, 3000));
         });
 
-        $this->assertTrue(RedisCache::exists($key));
+        $this->assertTrue(RedisCache::exists($key), "'{$key}' does not exist");
     }
 }
