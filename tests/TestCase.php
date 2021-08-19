@@ -7,7 +7,7 @@ use Lunaweb\RedisMock\Providers\RedisMockServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Sfneal\Helpers\Redis\Providers\RedisHelpersServiceProvider;
 
-class TestCase extends OrchestraTestCase
+abstract class TestCase extends OrchestraTestCase
 {
     /**
      * Define environment setup.
@@ -17,6 +17,8 @@ class TestCase extends OrchestraTestCase
      */
     protected function getEnvironmentSetUp($app)
     {
+        parent::getEnvironmentSetUp($app);
+
         $app['config']->set('app.debug', true);
         $app['config']->set('database.redis.client', 'mock');
         $app['config']->set('cache.default', 'redis');
