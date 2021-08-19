@@ -20,7 +20,6 @@ abstract class TestCase extends OrchestraTestCase
         parent::getEnvironmentSetUp($app);
 
         $app['config']->set('app.debug', true);
-        $app['config']->set('database.redis.client', 'mock');
         $app['config']->set('cache.default', 'redis');
         $app['config']->set('cache.prefix', 'redis-helpers');
     }
