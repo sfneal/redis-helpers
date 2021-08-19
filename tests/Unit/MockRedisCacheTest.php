@@ -5,7 +5,7 @@ namespace Sfneal\Helpers\Redis\Tests\Unit;
 use Sfneal\Helpers\Redis\RedisCache;
 use Sfneal\Helpers\Redis\Tests\TestCase;
 
-class RedisCacheTest extends TestCase
+class MockRedisCacheTest extends TestCase
 {
     public function test_defaultTTL()
     {
