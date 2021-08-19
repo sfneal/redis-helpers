@@ -94,7 +94,7 @@ class RedisCache
         return Cache::put(
             $key,
             $value,
-            (isset($expiration) ? $expiration : self::defaultTTL())
+            $expiration ?? self::defaultTTL()
         );
     }
 
