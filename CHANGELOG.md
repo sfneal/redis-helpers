@@ -110,3 +110,7 @@ All notable changes to `redis-helpers` will be documented in this file
 
 ## 1.3.2 - 2021-07-12
 - refactor test suite into `Feature` & `Unit` namespaces
+ 
+ 
+## 1.3.3 - 2021-08-23
+- refactor test suite into `Feature` & `Unit` namespaces
