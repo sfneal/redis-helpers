@@ -19,21 +19,6 @@ class RedisCache
     }
 
     /**
-     * Retrieve a redis key with the application prefix prepended.
-     *
-     * @param string $key
-     * @return string
-     */
-    private static function keyWithPrefix(string $key): string
-    {
-        if (! is_null(config('cache.prefix'))) {
-            return config('cache.prefix').":{$key}";
-        }
-
-        return $key;
-    }
-
-    /**
      * Retrieve a key's time to live in seconds.
      *
      * @param string $key
@@ -41,7 +26,7 @@ class RedisCache
      */
     public static function ttl(string $key): int
     {
-        return Redis::connection()->command('TTL', [self::keyWithPrefix($key)]);
+        return Redis::connection()->command('TTL', [$key]);
     }
 
     /**
@@ -53,17 +38,9 @@ class RedisCache
      */
     public static function keys(string $prefix = '', bool $wildcard = true)
     {
-        return array_map(
-            // Remove prefix from each key so that it's not concatenated twice
-            function ($key) {
-                return substr($key, strlen(config('cache.prefix')) + 1);
-            },
-
-            // List of Redis key's matching pattern
-            Redis::connection()
-                ->client()
-                ->keys(self::keyWithPrefix($prefix.($wildcard ? '*' : '')))
-        );
+        return Redis::connection()
+            ->client()
+            ->keys($prefix.($wildcard ? '*' : ''));
     }
 
     /**
@@ -148,15 +125,11 @@ class RedisCache
      */
     public static function delete($keys, bool $children = true): array
     {
-        // Returns an array of deleted keys with success values
-        return collect((array) $keys)
-            ->flatMap(function (string $key) use ($children) {
-                return self::keys($key, $children);
-            })
-            ->mapWithKeys(function (string $key) {
-                return [$key => Cache::forget($key)];
-            })
-            ->toArray();
+        $deleted = [];
+        foreach ((array) $keys as $key) {
+            $deleted[$key] = Cache::forget($key);
+        }
+        return $deleted;
     }
 
     /**
