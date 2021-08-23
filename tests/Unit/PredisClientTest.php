@@ -22,6 +22,7 @@ class PredisClientTest extends UnitTestCase
         $app['config']->set('database.redis.default.password', null);
         $app['config']->set('database.redis.default.port', 6379);
         $app['config']->set('database.redis.default.database', 0);
+        $app['config']->set('database.redis.default.options.prefix', null);
         $app['config']->set('cache.stores.redis.connection', 'default');
     }
 }
