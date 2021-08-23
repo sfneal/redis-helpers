@@ -18,12 +18,10 @@ class PredisClientTest extends UnitTestCase
         parent::getEnvironmentSetUp($app);
 
         $app['config']->set('database.redis.client', 'predis');
-        $app['config']->set('database.redis.predis', [
-            'host'     => 'cache',
-            'password' => null,
-            'port'     => 6379,
-            'database' => 0,
-        ]);
-        $app['config']->set('cache.stores.redis.connection', 'predis');
+        $app['config']->set('database.redis.default.host', 'cache');
+        $app['config']->set('database.redis.default.password', null);
+        $app['config']->set('database.redis.default.port', 6379);
+        $app['config']->set('database.redis.default.database', 0);
+        $app['config']->set('cache.stores.redis.connection', 'default');
     }
 }

@@ -7,7 +7,7 @@ services:
             dockerfile: Dockerfile
         image: stephenneal/redis-helpers:dev
         container_name: package
-        command: "--filter PredisClientTest::delete_single_key"
+        command: ""
         restart: "no"
         tty: true
         working_dir: /var/www
