@@ -54,7 +54,7 @@ class RedisCache
     public static function keys(string $prefix = '', bool $wildcard = true)
     {
         return array_map(
-            // Remove prefix from each key so it is not concatenated twice
+            // Remove prefix from each key so that it's not concatenated twice
             function ($key) {
                 return substr($key, strlen(config('cache.prefix')) + 1);
             },
