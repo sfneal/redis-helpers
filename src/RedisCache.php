@@ -129,6 +129,7 @@ class RedisCache
         foreach ((array) $keys as $key) {
             $deleted[$key] = Cache::forget($key);
         }
+
         return $deleted;
     }
 
