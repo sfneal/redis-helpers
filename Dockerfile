@@ -9,7 +9,7 @@ FROM stephenneal/php-composer:${php_composer_tag} AS composer
 WORKDIR /var/www
 
 # Copy composer & phpunit files
-COPY ["composer.json", "composer.lock", "phpunit.xml.dist", "/var/www/"]
+COPY ["composer.json", "phpunit.xml.dist", "/var/www/"]
 
 # Install composer dependencies
 RUN composer install --no-scripts --no-autoloader
