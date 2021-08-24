@@ -3,6 +3,7 @@
 namespace Sfneal\Helpers\Redis\Tests;
 
 use Illuminate\Foundation\Application;
+use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
 use Lunaweb\RedisMock\Providers\RedisMockServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Sfneal\Helpers\Redis\Providers\RedisHelpersServiceProvider;
@@ -18,6 +19,10 @@ abstract class TestCase extends OrchestraTestCase
     protected function getEnvironmentSetUp($app)
     {
         parent::getEnvironmentSetUp($app);
+
+        // make sure, our .env file is loaded
+        $app->useEnvironmentPath(__DIR__.'/..');
+        $app->bootstrapWith([LoadEnvironmentVariables::class]);
 
         $app['config']->set('app.debug', true);
         $app['config']->set('cache.default', 'redis');

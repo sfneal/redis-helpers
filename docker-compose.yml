@@ -5,7 +5,10 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
+            args:
+                env_file_name: .env.docker
         image: stephenneal/redis-helpers:dev
+        env_file: .env.docker
         container_name: package
         command: ""
         restart: "no"
