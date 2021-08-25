@@ -22,3 +22,5 @@ docker logs -f package
 
 sleep 20
 docker-compose down -v --remove-orphans
+
+docker image inspect stephenneal/redis-helpers:"${TAG}" > /dev/null 2>&1
