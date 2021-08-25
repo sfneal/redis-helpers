@@ -4,12 +4,13 @@ ARG php_composer_tag=8.0-v1
 # Build temp image to install composer dependencies
 FROM stephenneal/php-composer:${php_composer_tag} AS composer
 WORKDIR /var/www
+ARG composer_flags=""
 
 # Copy composer & phpunit files
 COPY ["composer.json", "phpunit.xml.dist", "/var/www/"]
 
 # Install composer dependencies
-RUN composer install --no-scripts --no-autoloader
+RUN composer update --no-scripts --no-autoloader ${composer_flags}
 
 
 

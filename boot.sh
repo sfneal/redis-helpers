@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+COMPOSER_FLAGS=${1:-""}
+
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
 PHP_VERSION=$(php --version)
@@ -9,7 +11,10 @@ TAG="$PHP_VERSION-$BRANCH"
 export TAG
 
 echo "Building image: stephenneal/redis-helpers:${TAG}"
-docker build -t stephenneal/redis-helpers:"${TAG}" --build-arg php_composer_tag="${PHP_VERSION}" .
+docker build -t stephenneal/redis-helpers:"${TAG}" \
+    --build-arg php_composer_tag="${PHP_VERSION}"-v1 \
+    --build-arg composer_flags="${COMPOSER_FLAGS}" \
+     .
 
 docker compose up -d
 
