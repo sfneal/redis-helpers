@@ -12,18 +12,18 @@ services:
         volumes:
             - package:/var/www
         depends_on:
-            - cache
+            - redis
         networks:
             - package-network
 
-    cache:
-        container_name: cache
+    redis:
+        container_name: redis
         image: redis:6-alpine
-        command: [ "redis-server", "--appendonly", "yes" ]
+        command: ["redis-server", "--appendonly", "yes", "--port 9736"]
         ports:
-            - "6379:6379"
+            - "9736:9736"
         volumes:
-            - cache:/data
+            - redis:/data
         networks:
             - package-network
 
@@ -36,4 +36,4 @@ networks:
 # Volumes
 volumes:
     package:
-    cache:
+    redis:

@@ -19,6 +19,7 @@ class PredisClientTest extends UnitTestCase
 
         $app['config']->set('database.redis.client', 'predis');
         $app['config']->set('database.redis.default.host', env('REDIS_HOST', '127.0.0.1'));
+        $app['config']->set('database.redis.default.port', env('REDIS_PORT', 6379));
         $app['config']->set('database.redis.default.options.prefix', null);
         $app['config']->set('cache.stores.redis.connection', 'default');
     }
