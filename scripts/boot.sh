@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# todo: move to gists that can be pulled
+
 # exit when any command fails
 set -e
 

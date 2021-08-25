@@ -10,10 +10,10 @@ cache:
 
 env:
     matrix:
-        - COMPOSER_FLAGS="--prefer-lowest" COMPOSER_TEST="test"
-        - COMPOSER_FLAGS="" COMPOSER_TEST="test"
-        - COMPOSER_FLAGS="--prefer-lowest" COMPOSER_TEST="test-docker-lowest"
-        - COMPOSER_FLAGS="" COMPOSER_TEST="test-docker"
+        - COMPOSER_FLAGS="--prefer-lowest" COMPOSER_TEST="test-composer" TEST_TYPE="composer"
+        - COMPOSER_FLAGS="" COMPOSER_TEST="test-composer" TEST_TYPE="composer"
+        - COMPOSER_FLAGS="--prefer-lowest" COMPOSER_TEST="test-docker-lowest" TEST_TYPE="docker"
+        - COMPOSER_FLAGS="" COMPOSER_TEST="test-docker" TEST_TYPE="docker"
     global:
         - secure: WKvOtufZdxGIAdIUNyIbQ1wgWQtxU7Qpx5S0xUOfgQx4xYoovnE7Te9h76I5o8eUdxBVlMGqhv3RYzDGzBzwbulq7KsbTq7sAvv3+brvL0DT/Zmz3qSBH3rGWFUpk0NBWIN/xlKKO9OREjCqjIGU5luMhH+WiGSrK1MrQIz/qzz/GW0HIE6J7EBaaq3xqL97IJ1KQGAqHclGGIb3yVEFz7F9AwCoC+5mdfQ/lrpScZTg2mk7S8A6yyXst4LnFP9E3GZsb2zP3aPcCZtqwc6Xah2RXFZ+2wsZ1Sv5Ba0IDD3Q/4qPDZtgDxhmSdXD0Vy84yTpL+IuKFQ4chiNhhrm8BzJx5X+j0mGSznlLbKHiE9mA8t8n+CufI/lkqh4wDXd7RxI93o0Yl/Sn9QbwFlismwQ0x1Cn2qMtL8Wc8IGBMnFcYModyhZhR8JzWxY3YpV6w/xvoVM5S5w1CSaoXVk2bSqzuwFASsoCIVIVHVr2fszR3xFH+tXNAcgdzoBTnUg6a9uzsTRNUEwnEzEw/fRgquRBY3nJL1TVe4IJhY0F4uw3/t/U5W5WosLNZxfPhIBengv3VrfF5gFdpPFIT5WJDAhlUYG0XF+dRYOfG1/qKQ7za7jgUkGw6i5t/qxaw8RyUF70Fr+QAYE5pBCLF+6Puvp+/hewC+B5RVY5Q/4+P0=
         - secure: Cu2jY9Xu1BvNowE3NuEHVBuz9UNwPEBvsc5FIZDUL0Ao2K619TUE62sHnst0bIRa4Cngghv97Yu6KreMQ3qHZRsHqAn+3vyhMiazuaypeZALzRArlcORcag33YmgulSBldbDFYiX5w3bhob1EhOpesImV6wChKJRAob8q5JT9ALIlurton8vwZkTSwSiU1BD3VRy9Ejn7WpDJgkB2a1UWxwSWt5YOHQlwTw89MdW1+xi94elANskylZTQ31LrcqH93Lj16fjGrDIN+kRbntlqwdB9F2VTMRcOHRsFbyflv+lCfAk+gkgpnL+iNMhjeSbZ6W5OtW84FM9mrddWsYul8p0umndTvusOZydcWtziMfGuSEg/3OvURZn1CJCbQNZV5lKOtksF+O4xiNTX1kP991ZhnDPZaybaEgwjRMneuzdxwlaq9YKLBAXuphzcSXZkrsS+dtf2jYfFlnHzXkvZFiG3l2+syhNlX/mFv2kGjRrts6pIwFPA0mybYUN6n42jgqnIf1NAo5FBffA7ojB5NeQMpoJj7ZylAb+f64IFiDUFc1/Jf7sSdR75cEw000EYUJTfKxUvsyPiOYs8FV38JnoDM4CT5fN/0xb2aMOsNka1lnwSukX6GAs0utuuO8UbSS8ivf7ky3idNCAWVUk3I3mZpLVNslQZ1+w6B1ODg8=
@@ -31,15 +31,12 @@ php:
     - 7.1
 
 before_script:
-    - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
     - echo "memory_limit=4096M" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
     - phpenv config-rm xdebug.ini
-    - travis_retry composer self-update
-    - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction
+    - bash scripts/before_script-"${TEST_TYPE}".sh
 
 script:
     - composer ${COMPOSER_TEST}
 
 after_script:
-    - composer upload-coverage
-    - docker images -a --filter='dangling=false' --format '{{.Repository}}:{{.Tag}} {{.ID}}'
+    - bash scripts/after_script-"${TEST_TYPE}".sh
