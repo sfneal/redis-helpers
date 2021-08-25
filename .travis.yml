@@ -33,7 +33,7 @@ php:
 before_script:
     - echo "memory_limit=4096M" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
     - phpenv config-rm xdebug.ini
-    - travis_retry scripts/before_script-"${TEST_TYPE}".sh
+    - bash scripts/before_script-"${TEST_TYPE}".sh
 
 script:
     - composer ${COMPOSER_TEST}
