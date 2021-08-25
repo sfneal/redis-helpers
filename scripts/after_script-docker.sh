@@ -1,1 +1,1 @@
-docker images -a --filter='dangling=false' --format '{{.Repository}}:{{.Tag}} {{.ID}}'
+docker images -a --filter='dangling=false' --format '{{.Repository}}:{{.Tag}} {{.Size}}'
