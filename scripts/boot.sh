@@ -23,7 +23,7 @@ docker build -t stephenneal/redis-helpers:"${TAG}" \
     --build-arg composer_flags="${COMPOSER_FLAGS}" \
      .
 
-docker compose up -d
+docker-compose up -d
 
 docker logs -f package
 
