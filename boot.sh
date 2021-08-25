@@ -9,7 +9,7 @@ TAG="$PHP_VERSION-$BRANCH"
 export TAG
 
 echo "Building image: stephenneal/redis-helpers:${TAG}"
-docker-compose build
+docker build -t stephenneal/redis-helpers:"${TAG}" --build-arg php_composer_tag="${PHP_VERSION}" .
 
 docker compose up -d
 
