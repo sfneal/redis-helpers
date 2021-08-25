@@ -12,7 +12,7 @@ export TAG
 
 echo "Building image: stephenneal/redis-helpers:${TAG}"
 docker build -t stephenneal/redis-helpers:"${TAG}" \
-    --build-arg php_composer_tag="${PHP_VERSION}"-v1 \
+    --build-arg php_composer_tag="${PHP_VERSION}" \
     --build-arg composer_flags="${COMPOSER_FLAGS}" \
      .
 
