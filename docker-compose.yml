@@ -19,7 +19,7 @@ services:
     redis:
         container_name: redis
         image: redis:6-alpine
-        command: ["redis-server", "--appendonly", "yes", "--port 9736"]
+        command: ["redis-server", "--appendonly yes", "--port 9736"]
         ports:
             - "9736:9736"
         volumes:
