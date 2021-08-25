@@ -15,5 +15,5 @@ docker compose up -d
 
 docker logs -f package
 
-sleep 60
+sleep 20
 docker-compose down -v --remove-orphans
