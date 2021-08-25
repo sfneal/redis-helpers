@@ -42,4 +42,4 @@ script:
 
 after_script:
     - composer upload-coverage
-    - docker images
+    - docker images -a --filter='dangling=false' --format '{{.Repository}}:{{.Tag}} {{.ID}}'
