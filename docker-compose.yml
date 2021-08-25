@@ -5,7 +5,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        image: stephenneal/redis-helpers:dev
+        image: "stephenneal/redis-helpers:${TAG}"
         env_file: .env.docker
         container_name: package
         tty: true

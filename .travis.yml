@@ -38,8 +38,9 @@ before_script:
     - docker build -t stephenneal/redis-helpers:dev --build-arg php_composer_tag="$(phpenv version-name)" .
 
 script:
-    - vendor/bin/phpunit --filter MockClientTest
+    - composer test
     - docker-compose up -d
 
 after_script:
     - composer upload-coverage
+    - docker images

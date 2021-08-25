@@ -49,7 +49,7 @@
     "scripts": {
         "test": "vendor/bin/phpunit --testsuite=mock",
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
-        "test-docker": "docker-compose build && docker compose up -d && docker logs -f package && sleep 60 && docker-compose down -v --remove-orphans",
+        "test-docker": "sh boot.sh",
         "upload-coverage": "php vendor/bin/ocular code-coverage:upload --format=php-clover phpunit.xml.dist",
         "update-test": "composer --prefer-stable update && composer test && composer update --prefer-lowest && composer test && composer update"
     },
