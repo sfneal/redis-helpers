@@ -48,6 +48,7 @@
     },
     "scripts": {
         "test": "vendor/bin/phpunit --testsuite=mock",
+        "test-composer": "composer test",
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
         "test-docker": "bash scripts/boot.sh",
         "test-docker-lowest": "bash scripts/boot.sh --prefer-lowest",
