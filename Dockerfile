@@ -1,11 +1,8 @@
 # Base PHP image tags & Laravel .env file
 ARG php_composer_tag=8.0-v1
 
-
 # Build temp image to install composer dependencies
 FROM stephenneal/php-composer:${php_composer_tag} AS composer
-
-# Set working directory
 WORKDIR /var/www
 
 # Copy composer & phpunit files
@@ -15,10 +12,9 @@ COPY ["composer.json", "phpunit.xml.dist", "/var/www/"]
 RUN composer install --no-scripts --no-autoloader
 
 
+
 # Build final image
 FROM stephenneal/php-composer:${php_composer_tag}
-
-# Set working directory
 WORKDIR /var/www
 
 # Copy relevant files from base image
