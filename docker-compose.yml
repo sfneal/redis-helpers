@@ -8,10 +8,7 @@ services:
         image: stephenneal/redis-helpers:dev
         env_file: .env.docker
         container_name: package
-        command: ""
-        restart: "no"
         tty: true
-        working_dir: /var/www
         volumes:
             - package:/var/www
         depends_on:
