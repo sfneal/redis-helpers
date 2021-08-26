@@ -3,7 +3,6 @@
 namespace Sfneal\Helpers\Redis\Tests\Unit;
 
 use Illuminate\Foundation\Application;
-use Sfneal\Helpers\Redis\Tests\UnitTestCase;
 
 class PredisClientTest extends UnitTestCase
 {
