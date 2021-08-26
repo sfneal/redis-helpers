@@ -22,7 +22,11 @@ trait DeleteTest
         RedisCache::setMany($array);
 
         $key = 'pit-13';
-        RedisCache::delete($key);
+        $deleted = RedisCache::delete($key);
+
+        $this->assertIsArray($deleted);
+        $this->assertArrayHasKey($key, $deleted);
+        $this->assertTrue($deleted[$key], "'{$key}' was properly deleted.");
 
         $this->assertFalse(RedisCache::exists($key), "'{$key}' does exist.");
         $this->assertTrue(RedisCache::missing($key), "'{$key}' is not missing.");
@@ -44,9 +48,14 @@ trait DeleteTest
         RedisCache::setMany($array);
 
         $keys = ['pit-71', 'pit-58'];
-        RedisCache::delete($keys);
+        $deleted = RedisCache::delete($keys);
+
+        $this->assertIsArray($deleted);
 
         foreach ($keys as $key) {
+            $this->assertArrayHasKey($key, $deleted);
+            $this->assertTrue($deleted[$key], "'{$key}' was properly deleted.");
+
             $this->assertFalse(RedisCache::exists($key), "'{$key}' does exist.");
             $this->assertTrue(RedisCache::missing($key), "'{$key}' is not missing.");
         }
