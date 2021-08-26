@@ -13,9 +13,10 @@ trait ExistsTest
     {
         $key = 'bos-14';
         $value = 'w';
-        RedisCache::set($key, $value);
+        $wasSet = RedisCache::set($key, $value);
         $actual = RedisCache::exists($key);
 
+        $this->assertTrue($wasSet);
         $this->assertTrue($actual);
     }
 }
