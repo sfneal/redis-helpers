@@ -3,8 +3,6 @@
 # exit when any command fails
 set -e
 
-COMPOSER_FLAGS=${1:-""}
-
 if [ -z "$TRAVIS_BRANCH" ]; then
     BRANCH=$(git rev-parse --abbrev-ref HEAD)
 else
@@ -14,7 +12,10 @@ fi
 PHP_VERSION=$(php --version)
 PHP_VERSION=${PHP_VERSION:4:3}
 
-TAG="$PHP_VERSION-$BRANCH"
+# Allow for a php-composer image tag argument
+PHP_COMPOSER_TAG=${1-$PHP_VERSION}
+
+TAG="$PHP_COMPOSER_TAG-$BRANCH"
 export TAG
 
 docker-compose down -v --remove-orphans
