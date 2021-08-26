@@ -44,7 +44,7 @@ trait NestedKeysTest
 
         $this->assertSame(array_values($array), $output);
         foreach ($array as $key => $value) {
-            $this->assertSame(RedisCache::get($key), $value);
+            $this->assertEquals(RedisCache::get($key), $value);
         }
     }
 

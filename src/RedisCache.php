@@ -107,6 +107,7 @@ class RedisCache
      */
     public static function setMany(array $array, int $expiration = null): array
     {
+        // todo: optimize by using collections
         foreach ($array as $key => $value) {
             self::set($key, $value, $expiration);
         }
