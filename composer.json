@@ -47,8 +47,11 @@
         ]
     },
     "scripts": {
-        "test": "vendor/bin/phpunit",
+        "test": "vendor/bin/phpunit --testsuite=mock",
+        "test-composer": "composer test",
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
+        "test-docker": "bash scripts/boot.sh",
+        "test-docker-lowest": "bash scripts/boot.sh --prefer-lowest",
         "upload-coverage": "php vendor/bin/ocular code-coverage:upload --format=php-clover phpunit.xml.dist",
         "update-test": "composer --prefer-stable update && composer test && composer update --prefer-lowest && composer test && composer update"
     },
