@@ -1,13 +1,13 @@
 <?php
 
-namespace Sfneal\Helpers\Redis\Tests\Feature;
+namespace Sfneal\Helpers\Redis\Tests\Unit\Traits;
 
 use Sfneal\Helpers\Redis\RedisCache;
-use Sfneal\Helpers\Redis\Tests\TestCase;
 
-class NestedKeysTest extends TestCase
+trait NestedKeysTest
 {
-    public function test_get()
+    /** @test */
+    public function nested_get()
     {
         $key = 'bos:33#pos';
         $value = 'd';
@@ -18,7 +18,8 @@ class NestedKeysTest extends TestCase
         $this->assertNotEquals($value, RedisCache::get('bos:33'));
     }
 
-    public function test_set()
+    /** @test */
+    public function nested_set()
     {
         $key = 'bos:47#pos';
         $value = 'd';
@@ -30,7 +31,8 @@ class NestedKeysTest extends TestCase
         $this->assertNotEquals($expected, RedisCache::get('bos:47'));
     }
 
-    public function test_setMany()
+    /** @test */
+    public function nested_setMany()
     {
         $array = [
             'bos:37#pos' => 'c',
@@ -42,11 +44,12 @@ class NestedKeysTest extends TestCase
 
         $this->assertSame(array_values($array), $output);
         foreach ($array as $key => $value) {
-            $this->assertSame(RedisCache::get($key), $value);
+            $this->assertEquals(RedisCache::get($key), $value);
         }
     }
 
-    public function test_expire()
+    /** @test */
+    public function nested_expire()
     {
         $key = 'bos:88#pos';
         $value = 'w';
@@ -56,7 +59,8 @@ class NestedKeysTest extends TestCase
         $this->assertTrue($stored);
     }
 
-    public function test_delete_key()
+    /** @test */
+    public function nested_delete_key()
     {
         $array = [
             'bos:63:pos' => 'w',
@@ -75,7 +79,8 @@ class NestedKeysTest extends TestCase
         $this->assertTrue(RedisCache::missing($key));
     }
 
-    public function test_delete_parent_key()
+    /** @test */
+    public function nested_delete_parent_key()
     {
         $array = [
             'bos:46#pos' => 'c',
@@ -95,7 +100,8 @@ class NestedKeysTest extends TestCase
         }
     }
 
-    public function test_delete_array()
+    /** @test */
+    public function nested_delete_array()
     {
         $toDelete = [
             'bos:25#pos' => 'd',
@@ -129,7 +135,8 @@ class NestedKeysTest extends TestCase
         }
     }
 
-    public function test_exists()
+    /** @test */
+    public function nested_exists()
     {
         $key = 'bos:14#pos';
         $value = 'w';
@@ -139,7 +146,8 @@ class NestedKeysTest extends TestCase
         $this->assertTrue($exists);
     }
 
-    public function test_missing()
+    /** @test */
+    public function nested_missing()
     {
         $key = 'bos:99';
         $expected = RedisCache::missing($key);
@@ -147,7 +155,8 @@ class NestedKeysTest extends TestCase
         $this->assertTrue($expected);
     }
 
-    public function test_setIfMissing()
+    /** @test */
+    public function nested_setIfMissing()
     {
         $key = 'bos:14#pos';
         $value = 'w';
@@ -161,7 +170,8 @@ class NestedKeysTest extends TestCase
         $this->assertFalse($output);
     }
 
-    public function test_increment()
+    /** @test */
+    public function nested_increment()
     {
         $key = 'bos:14#age';
         $value = 25;
@@ -175,7 +185,8 @@ class NestedKeysTest extends TestCase
         $this->assertTrue($output == 26);
     }
 
-    public function test_flush()
+    /** @test */
+    public function nested_flush()
     {
         $array = [
             'bos:37#pos' => 'c',
