@@ -121,3 +121,8 @@ All notable changes to `redis-helpers` will be documented in this file
 ## 1.3.4 - 2021-08-26
 - optimize composer scripts
 - add improved assertions to 'delete' & 'exists' test traits
+
+
+## 1.3.5 - 2021-08-26
+- cut laravel/framework dependency & replaced with illuminate/support
+- add `NestedKeysTest` to unit test traits so that it can be tested using 'mock' & 'predis' clients
