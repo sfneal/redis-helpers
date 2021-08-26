@@ -10,8 +10,12 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="Test Suite">
+        <testsuite name="mock">
             <directory>tests</directory>
+            <exclude>./tests/Unit/PredisClientTest.php</exclude>
+        </testsuite>
+        <testsuite name="predis">
+            <directory>./tests</directory>
         </testsuite>
     </testsuites>
     <filter>

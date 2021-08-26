@@ -23,6 +23,7 @@
         "josiasmontag/laravel-redis-mock": ">=1.2.6",
         "orchestra/testbench": ">=3.8.0",
         "phpunit/phpunit": ">=6.5.14",
+        "predis/predis": "^1.1",
         "scrutinizer/ocular": "^1.8"
     },
     "extra": {
@@ -46,8 +47,11 @@
         ]
     },
     "scripts": {
-        "test": "vendor/bin/phpunit",
+        "test": "vendor/bin/phpunit --testsuite=mock",
+        "test-composer": "composer test",
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
+        "test-docker": "bash scripts/boot.sh",
+        "test-docker-lowest": "bash scripts/boot.sh --prefer-lowest",
         "upload-coverage": "php vendor/bin/ocular code-coverage:upload --format=php-clover phpunit.xml.dist",
         "update-test": "composer --prefer-stable update && composer test && composer update --prefer-lowest && composer test && composer update"
     },

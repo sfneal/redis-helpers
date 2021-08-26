@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+    package:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        image: "stephenneal/redis-helpers:${TAG}"
+        env_file: .env.docker
+        container_name: package
+        tty: true
+        volumes:
+            - package:/var/www
+        depends_on:
+            - redis
+        networks:
+            - package-network
+
+    redis:
+        container_name: redis
+        image: redis:6-alpine
+        command: ["redis-server", "--appendonly yes", "--port 9736"]
+        ports:
+            - "9736:9736"
+        volumes:
+            - redis:/data
+        networks:
+            - package-network
+
+
+# Networks
+networks:
+    package-network:
+        driver: bridge
+
+# Volumes
+volumes:
+    package:
+    redis:

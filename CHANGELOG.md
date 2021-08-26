@@ -110,3 +110,9 @@ All notable changes to `redis-helpers` will be documented in this file
 
 ## 1.3.2 - 2021-07-12
 - refactor test suite into `Feature` & `Unit` namespaces
+
+
+## 1.3.3 - 2021-08-26
+- add support for running test suite using predis/predis client
+- refactor Unit tests into traits used by each client test that separate tests by action (Delete, Exists, Get, Set, etc)
+- add support for building Docker images and running a docker-compose services that run the test suite using predis/predis connected to a real redis server (opposed to a mock)
