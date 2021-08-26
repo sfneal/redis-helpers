@@ -16,14 +16,17 @@ fi
 PHP_VERSION=$(php --version)
 PHP_VERSION=${PHP_VERSION:4:3}
 
-TAG="$PHP_VERSION-$BRANCH"
+# Allow for a php-composer image tag argument
+PHP_COMPOSER_TAG=${2-$PHP_VERSION}
+
+TAG="$PHP_COMPOSER_TAG-$BRANCH"
 export TAG
 
 docker-compose down -v --remove-orphans
 
 echo "Building image: stephenneal/redis-helpers:${TAG}"
 docker build -t stephenneal/redis-helpers:"${TAG}" \
-    --build-arg php_composer_tag="${PHP_VERSION}" \
+    --build-arg php_composer_tag="${PHP_COMPOSER_TAG}" \
     --build-arg composer_flags="${COMPOSER_FLAGS}" \
      .
 
