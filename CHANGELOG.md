@@ -116,3 +116,8 @@ All notable changes to `redis-helpers` will be documented in this file
 - add support for running test suite using predis/predis client
 - refactor Unit tests into traits used by each client test that separate tests by action (Delete, Exists, Get, Set, etc)
 - add support for building Docker images and running a docker-compose services that run the test suite using predis/predis connected to a real redis server (opposed to a mock)
+
+
+## 1.3.4 - 2021-08-26
+- optimize composer scripts
+- add improved assertions to 'delete' & 'exists' test traits
