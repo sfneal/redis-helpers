@@ -90,7 +90,6 @@ class RedisCache
     public static function set(string $key, $value = null, int $expiration = null): bool
     {
         // Store the $value in the Cache
-        // todo: optimize expiration call
         return Cache::put(
             $key,
             $value,
