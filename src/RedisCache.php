@@ -3,6 +3,7 @@
 namespace Sfneal\Helpers\Redis;
 
 use Closure;
+use ErrorException;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
 
@@ -53,17 +54,21 @@ class RedisCache
      */
     public static function keys(string $prefix = '', bool $wildcard = true)
     {
-        return array_map(
+        try {
+            return array_map(
             // Remove prefix from each key so that it's not concatenated twice
-            function ($key) {
-                return substr($key, strlen(config('cache.prefix')) + 1);
-            },
+                function ($key) {
+                    return substr($key, strlen(config('cache.prefix')) + 1);
+                },
 
-            // List of Redis key's matching pattern
-            Redis::connection()
-                ->client()
-                ->keys(self::keyWithPrefix($prefix.($wildcard ? '*' : '')))
-        );
+                // List of Redis key's matching pattern
+                Redis::connection()
+                    ->client()
+                    ->keys(self::keyWithPrefix($prefix.($wildcard ? '*' : '')))
+            );
+        } catch (ErrorException $e) {
+            return [$prefix];
+        }
     }
 
     /**

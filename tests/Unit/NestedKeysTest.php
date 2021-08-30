@@ -1,10 +1,11 @@
 <?php
 
-namespace Sfneal\Helpers\Redis\Tests\Unit\Traits;
+namespace Sfneal\Helpers\Redis\Tests\Unit;
 
 use Sfneal\Helpers\Redis\RedisCache;
+use Sfneal\Helpers\Redis\Tests\TestCase;
 
-trait NestedKeysTest
+class NestedKeysTest extends TestCase
 {
     /** @test */
     public function nested_get()
@@ -63,19 +64,21 @@ trait NestedKeysTest
     public function nested_delete_key()
     {
         $array = [
-            'bos:63:pos' => 'w',
-            'bos:63:name_first' => 'Brad',
-            'bos:63:name_last' => 'Marchand',
-            'bos:63:age' => 32,
+            'bos:63#pos' => 'w',
+            'bos:63#name_first' => 'Brad',
+            'bos:63#name_last' => 'Marchand',
+            'bos:63#age' => 32,
         ];
         RedisCache::setMany($array);
 
-        $key = 'bos:63:pos';
+        $key = 'bos:63#pos';
         $this->assertTrue(RedisCache::exists($key));
-        RedisCache::delete($key);
+        $deleted = RedisCache::delete($key);
+
+        $this->assertEquals(['bos:63#pos' => true], $deleted);
 
         $this->assertFalse(RedisCache::exists($key));
-        $this->assertTrue(RedisCache::exists('bos:63:name_first'));
+        $this->assertTrue(RedisCache::exists('bos:63#name_first'));
         $this->assertTrue(RedisCache::missing($key));
     }
 
@@ -93,6 +96,7 @@ trait NestedKeysTest
         $key = 'bos:46';
         $deleted = RedisCache::delete($key);
 
+        $this->assertEquals(array_fill_keys(array_keys($array), 1), $deleted);
         $this->assertFalse(RedisCache::exists($key));
 
         foreach (array_keys($array) as $key) {
