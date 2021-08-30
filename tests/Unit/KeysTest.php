@@ -1,10 +1,11 @@
 <?php
 
-namespace Sfneal\Helpers\Redis\Tests\Unit\Traits;
+namespace Sfneal\Helpers\Redis\Tests\Unit;
 
 use Sfneal\Helpers\Redis\RedisCache;
+use Sfneal\Helpers\Redis\Tests\TestCase;
 
-trait KeysTest
+class KeysTest extends TestCase
 {
     /**
      * @test

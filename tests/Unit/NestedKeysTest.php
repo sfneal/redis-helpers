@@ -1,10 +1,11 @@
 <?php
 
-namespace Sfneal\Helpers\Redis\Tests\Unit\Traits;
+namespace Sfneal\Helpers\Redis\Tests\Unit;
 
 use Sfneal\Helpers\Redis\RedisCache;
+use Sfneal\Helpers\Redis\Tests\TestCase;
 
-trait NestedKeysTest
+class NestedKeysTest extends TestCase
 {
     /** @test */
     public function nested_get()

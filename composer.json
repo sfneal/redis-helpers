@@ -47,7 +47,7 @@
         ]
     },
     "scripts": {
-        "test": "vendor/bin/phpunit --testsuite=mock",
+        "test": "vendor/bin/phpunit",
         "test-composer": "composer test",
         "test-both": "composer test && composer docker-test",
         "test-all": "composer update-test && composer docker-test",
