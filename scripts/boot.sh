@@ -32,10 +32,10 @@ docker build -t stephenneal/redis-helpers:"${TAG}" \
 
 docker-compose up -d
 
-docker logs -f package
+docker logs -f redis-helpers
 
 while true; do
-    if [[ $(docker inspect -f '{{.State.Running}}' package) != true ]]; then
+    if [[ $(docker inspect -f '{{.State.Running}}' redis-helpers) != true ]]; then
         break
     else
         echo "'package' container is still running... waiting 3 secs then checking again..."
@@ -44,7 +44,7 @@ while true; do
 done
 
 # Confirm it exited with code 0
-docker inspect -f '{{.State.ExitCode}}' package > /dev/null 2>&1
+docker inspect -f '{{.State.ExitCode}}' redis-helpers > /dev/null 2>&1
 
 # Confirm the image exists
 docker image inspect stephenneal/redis-helpers:"${TAG}" > /dev/null 2>&1

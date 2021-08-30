@@ -1,39 +1,39 @@
 version: '3'
 
 services:
-    package:
+    redis-helpers:
         build:
             context: .
             dockerfile: Dockerfile
         image: "stephenneal/redis-helpers:${TAG}"
         env_file: .env.docker
-        container_name: package
+        container_name: redis-helpers
         tty: true
         volumes:
-            - package:/var/www
+            - redis-helpers:/var/www
         depends_on:
-            - redis
+            - redis-helpers-cache
         networks:
-            - package-network
+            - redis-helpers-network
 
-    redis:
-        container_name: redis
+    redis-helpers-cache:
+        container_name: redis-helpers-cache
         image: redis:6-alpine
         command: ["redis-server", "--appendonly yes", "--port 9736"]
         ports:
             - "9736:9736"
         volumes:
-            - redis:/data
+            - redis-helpers-cache:/data
         networks:
-            - package-network
+            - redis-helpers-network
 
 
 # Networks
 networks:
-    package-network:
+    redis-helpers-network:
         driver: bridge
 
 # Volumes
 volumes:
-    package:
-    redis:
+    redis-helpers:
+    redis-helpers-cache:
