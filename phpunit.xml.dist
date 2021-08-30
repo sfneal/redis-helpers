@@ -10,12 +10,8 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="mock">
+        <testsuite name="Test Suite">
             <directory>tests</directory>
-            <exclude>./tests/Unit/PredisClientTest.php</exclude>
-        </testsuite>
-        <testsuite name="predis">
-            <directory>./tests</directory>
         </testsuite>
     </testsuites>
     <filter>
@@ -30,7 +26,4 @@
         <log type="coverage-text" target="build/coverage.txt"/>
         <log type="coverage-clover" target="build/logs/clover.xml"/>
     </logging>
-    <php>
-        <env name="REDIS_CLIENT" value="mock"/>
-    </php>
 </phpunit>
