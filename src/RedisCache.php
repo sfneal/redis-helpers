@@ -66,9 +66,7 @@ class RedisCache
                     ->client()
                     ->keys(self::keyWithPrefix($prefix.($wildcard ? '*' : '')))
             );
-        }
-
-        catch (ErrorException $e) {
+        } catch (ErrorException $e) {
             return [$prefix];
         }
     }
