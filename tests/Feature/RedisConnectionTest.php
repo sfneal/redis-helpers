@@ -2,15 +2,22 @@
 
 namespace Sfneal\Helpers\Redis\Tests\Feature;
 
+use Illuminate\Redis\Connections\PredisConnection;
 use Illuminate\Support\Facades\Redis;
 use Lunaweb\RedisMock\MockPredisConnection;
 use Sfneal\Helpers\Redis\Tests\TestCase;
 
-class RedisMockTest extends TestCase
+class RedisConnectionTest extends TestCase
 {
     public function test_redis_connection()
     {
-        $this->assertInstanceOf(MockPredisConnection::class, Redis::connection());
+        if (config('database.redis.client') == 'mock') {
+            $this->assertInstanceOf(MockPredisConnection::class, Redis::connection());
+        }
+
+        elseif (config('database.redis.client') == 'predis') {
+            $this->assertInstanceOf(PredisConnection::class, Redis::connection());
+        }
     }
 
     public function test_set_and_get()
