@@ -74,7 +74,7 @@ trait NestedKeysTest
         $this->assertTrue(RedisCache::exists($key));
         $deleted = RedisCache::delete($key);
 
-        $this->assertEquals(array_fill_keys(array_keys($array), 1), $deleted);
+        $this->assertEquals(['bos:63#pos' => true], $deleted);
 
         $this->assertFalse(RedisCache::exists($key));
         $this->assertTrue(RedisCache::exists('bos:63#name_first'));
