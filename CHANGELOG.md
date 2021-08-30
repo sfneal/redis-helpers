@@ -126,3 +126,8 @@ All notable changes to `redis-helpers` will be documented in this file
 ## 1.3.5 - 2021-08-26
 - cut laravel/framework dependency & replaced with illuminate/support
 - add `NestedKeysTest` to unit test traits so that it can be tested using 'mock' & 'predis' clients
+
+
+## 1.4.0 - 2021-08-30
+- optimize test suite organization by setting redis client & other config values in the root `TestCase` #26
+- fix issues with errors being encountered while scanning keys using a 'mock' redis client #27 
