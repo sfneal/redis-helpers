@@ -115,16 +115,6 @@ function redisIncrement(string $key, int $value = 1, int $expiration = null)
 }
 
 /**
- * Flush the entire redis cache.
- *
- * @return bool
- */
-function redisFlush(): bool
-{
-    return RedisCache::flush();
-}
-
-/**
  * Flush the redis cache of all keys with environment's prefix.
  *
  * @return array

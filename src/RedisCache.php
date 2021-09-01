@@ -227,16 +227,6 @@ class RedisCache
     }
 
     /**
-     * Flush the entire redis cache.
-     *
-     * @return bool
-     */
-    public static function flush(): bool
-    {
-        return Cache::flush();
-    }
-
-    /**
      * Flush the redis cache of all keys with environment's prefix.
      *
      * @return array

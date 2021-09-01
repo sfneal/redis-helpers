@@ -2,6 +2,7 @@
 
 namespace Sfneal\Helpers\Redis\Tests\Unit;
 
+use Illuminate\Support\Facades\Cache;
 use Sfneal\Helpers\Redis\RedisCache;
 use Sfneal\Helpers\Redis\Tests\TestCase;
 
@@ -206,7 +207,7 @@ class NestedKeysTest extends TestCase
             $this->assertTrue(RedisCache::exists($key));
         }
 
-        RedisCache::flush();
+        Cache::flush();
 
         foreach ($array as $key => $value) {
             $this->assertTrue(RedisCache::missing($key));
