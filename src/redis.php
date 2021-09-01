@@ -22,9 +22,9 @@ function redisGet(string $key)
  * @param string $key
  * @param mixed|null $value
  * @param int|null $expiration
- * @return mixed|null $value
+ * @return bool $value
  */
-function redisSet(string $key, $value = null, $expiration = null)
+function redisSet(string $key, $value = null, $expiration = null): bool
 {
     return RedisCache::set($key, $value, $expiration);
 }
@@ -34,9 +34,9 @@ function redisSet(string $key, $value = null, $expiration = null)
  *
  * @param string $key
  * @param null $expiration
- * @return mixed
+ * @return bool
  */
-function redisExpire(string $key, $expiration = null)
+function redisExpire(string $key, $expiration = null): bool
 {
     return RedisCache::expire($key, $expiration);
 }
@@ -81,9 +81,9 @@ function redisMissing(string $key): bool
  * @param string $view
  * @param array $data
  * @param int|null $expiration
- * @return mixed|null
+ * @return bool
  */
-function redisCacheView(string $key, string $view, array $data, int $expiration = null)
+function redisCacheView(string $key, string $view, array $data, int $expiration = null): bool
 {
     return RedisCache::set($key, View::make($view, $data)->render(), $expiration);
 }
