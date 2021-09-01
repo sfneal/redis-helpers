@@ -131,4 +131,9 @@ All notable changes to `redis-helpers` will be documented in this file
 ## 1.4.0 - 2021-08-30
 - optimize test suite organization by setting redis client & other config values in the root `TestCase` #26
 - fix issues with nested keys tests failing while using the 'mock' redis client #27
-- add try/catch block to `RedisCache::key()` method so that when an error is encountered while trying to find child keys, the original key is returned 
+- add try/catch block to `RedisCache::key()` method so that when an error is encountered while trying to find child keys, the original key is returned
+ 
+ 
+## 1.4.1 - 2021-09-01
+- add helper method tests & use of DataProviders
+- optimize methods return type hinting
