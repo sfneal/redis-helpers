@@ -70,6 +70,7 @@ class SetTest extends TestCase
         $this->assertTrue($output == 1);
 
         $output = RedisCache::increment($key);
+        $this->assertIsInt($output);
         $this->assertSame(2, $output);
     }
 }

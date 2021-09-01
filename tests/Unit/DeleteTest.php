@@ -81,7 +81,10 @@ class DeleteTest extends TestCase
             $this->assertTrue(RedisCache::exists($key), "'{$key}' does not exist.");
         }
 
-        RedisCache::flush();
+        $output = RedisCache::flush();
+
+        $this->assertIsBool($output);
+        $this->assertTrue($output);
 
         foreach ($array as $key => $value) {
             $this->assertTrue(RedisCache::missing($key), "'{$key}' is not missing.");
