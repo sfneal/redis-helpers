@@ -137,3 +137,10 @@ All notable changes to `redis-helpers` will be documented in this file
 ## 1.4.1 - 2021-09-01
 - add helper method tests & use of DataProviders
 - optimize methods return type hinting
+
+
+## 2.0.0 - 2021-09-01
+- cut `redisCreateIfMissing()` helper function
+- cut `flush()` method as it provided no further functionality over `Cache::flush()`
+- cut `rememberForever()` method
+- refactor param declaration order of `remember()` method so that $ttl is nullable and uses the default
