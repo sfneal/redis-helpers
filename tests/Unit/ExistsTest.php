@@ -9,13 +9,25 @@ class ExistsTest extends TestCase
 {
     /**
      * @test
+     * @dataProvider keyValueProvider
      */
-    public function key_exists()
+    public function key_exists($key, $value)
     {
-        $key = 'bos-14';
-        $value = 'w';
         $wasSet = RedisCache::set($key, $value);
         $actual = RedisCache::exists($key);
+
+        $this->assertTrue($wasSet);
+        $this->assertTrue($actual);
+    }
+
+    /**
+     * @test
+     * @dataProvider keyValueProvider
+     */
+    public function key_exists_helper($key, $value)
+    {
+        $wasSet = RedisCache::set($key, $value);
+        $actual = redisExists($key);
 
         $this->assertTrue($wasSet);
         $this->assertTrue($actual);

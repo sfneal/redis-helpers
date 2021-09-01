@@ -26,6 +26,8 @@ class KeysTest extends TestCase
 
         $keys = RedisCache::keys('bos:3');
 
+        $this->assertNotNull($keys);
+        $this->assertIsArray($keys);
         $this->assertCount(4, $keys);
         foreach (['bos:3#pos', 'bos:3#name_first', 'bos:3#name_last', 'bos:3#age'] as $key) {
             $this->assertTrue(in_array($key, $keys));

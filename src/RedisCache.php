@@ -22,6 +22,8 @@ class RedisCache
     /**
      * Retrieve a redis key with the application prefix prepended.
      *
+     *  - used when interacting directly with a Redis client instead of the `Cache` facade
+     *
      * @param string $key
      * @return string
      */
@@ -50,9 +52,9 @@ class RedisCache
      *
      * @param string $prefix
      * @param bool $wildcard
-     * @return mixed list of keys without prefix
+     * @return array|false[]|string[] list of keys without prefix
      */
-    public static function keys(string $prefix = '', bool $wildcard = true)
+    public static function keys(string $prefix = '', bool $wildcard = true): array
     {
         try {
             return array_map(
@@ -213,9 +215,9 @@ class RedisCache
      * @param string $key
      * @param int $value
      * @param int|null $expiration
-     * @return mixed
+     * @return int
      */
-    public static function increment(string $key, int $value = 1, int $expiration = null)
+    public static function increment(string $key, int $value = 1, int $expiration = null): int
     {
         // Create the Key if it's missing
         self::setIfMissing($key, 0, $expiration);
@@ -227,9 +229,9 @@ class RedisCache
     /**
      * Flush the entire redis cache.
      *
-     * @return mixed
+     * @return bool
      */
-    public static function flush()
+    public static function flush(): bool
     {
         return Cache::flush();
     }

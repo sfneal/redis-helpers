@@ -9,14 +9,25 @@ class GetTest extends TestCase
 {
     /**
      * @test
+     * @dataProvider keyValueProvider
      */
-    public function get_keys_value()
+    public function get_keys_value($key, $value)
     {
-        $key = 'bos-33';
-        $value = 'd';
         RedisCache::set($key, $value);
         $output = RedisCache::get($key);
 
-        $this->assertSame($value, $output);
+        $this->assertEquals($value, $output);
+    }
+
+    /**
+     * @test
+     * @dataProvider keyValueProvider
+     */
+    public function get_keys_value_helper($key, $value)
+    {
+        RedisCache::set($key, $value);
+        $output = redisGet($key);
+
+        $this->assertEquals($value, $output);
     }
 }

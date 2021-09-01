@@ -9,23 +9,130 @@ class DeleteTest extends TestCase
 {
     /**
      * @test
+     * @dataProvider deleteKeysProvider
      */
-    public function delete_single_key()
+    public function delete_single_key(array $array)
     {
-        $array = [
-            'phi-93' => 'c',
-            'phi-13' => 'w',
-            'phi-28' => 'w',
-            'pit-59' => 'c',
-            'pit-17' => 'c',
-            'pit-13' => 'd',
-        ];
         RedisCache::setMany($array);
 
-        $key = 'pit-13';
+        $key = array_rand($array);
         $deleted = RedisCache::delete($key);
 
-        $this->assertIsArray($deleted);
+        $this->assertDeletedKey($deleted, $key);
+    }
+
+    /**
+     * @test
+     * @dataProvider deleteKeysProvider
+     */
+    public function delete_multiple_keys(array $array)
+    {
+        RedisCache::setMany($array);
+
+        $keys = array_rand($array, rand(2, count($array) - 1));
+        $deleted = RedisCache::delete($keys);
+
+        $this->assertDeletedKeys($deleted, $keys);
+    }
+
+    /**
+     * @test
+     * @dataProvider deleteKeysProvider
+     */
+    public function flush_cache(array $array)
+    {
+        RedisCache::setMany($array);
+
+        foreach ($array as $key => $value) {
+            $this->assertTrue(RedisCache::exists($key), "'{$key}' does not exist.");
+        }
+
+        $output = RedisCache::flush();
+
+        $this->assertFlushed($array, $output);
+    }
+
+    /**
+     * @test
+     * @dataProvider deleteKeysProvider
+     */
+    public function delete_single_key_helper(array $array)
+    {
+        RedisCache::setMany($array);
+
+        $key = array_rand($array);
+        $deleted = redisDelete($key);
+
+        $this->assertDeletedKey($deleted, $key);
+    }
+
+    /**
+     * @test
+     * @dataProvider deleteKeysProvider
+     */
+    public function delete_multiple_keys_helper(array $array)
+    {
+        RedisCache::setMany($array);
+
+        $keys = array_rand($array, rand(2, count($array) - 1));
+        $deleted = redisDelete($keys);
+
+        $this->assertDeletedKeys($deleted, $keys);
+    }
+
+    /**
+     * @test
+     * @dataProvider deleteKeysProvider
+     */
+    public function flush_cache_helper(array $array)
+    {
+        RedisCache::setMany($array);
+
+        foreach ($array as $key => $value) {
+            $this->assertTrue(RedisCache::exists($key), "'{$key}' does not exist.");
+        }
+
+        $output = redisFlush();
+
+        $this->assertFlushed($array, $output);
+    }
+
+    /**
+     * Retrieve an array of key values pairs to be used when testing key deleting.
+     *
+     * @return string[][][]
+     */
+    public function deleteKeysProvider(): array
+    {
+        return [
+            [[
+                'phi-93' => 'c',
+                'phi-13' => 'w',
+                'phi-28' => 'w',
+                'pit-59' => 'c',
+                'pit-17' => 'c',
+                'pit-13' => 'd',
+            ]],
+            [[
+                'bos-37' => 'c',
+                'bos-63' => 'w',
+                'bos-88' => 'w',
+                'pit-87' => 'c',
+                'pit-71' => 'c',
+                'pit-58' => 'd',
+            ]],
+        ];
+    }
+
+    /**
+     * Execute assertions to confirm a single key was deleted.
+     *
+     * @param $deleted
+     * @param $key
+     */
+    public function assertDeletedKey($deleted, $key): void
+    {
+        $this->assertIsString($key);
         $this->assertArrayHasKey($key, $deleted);
         $this->assertTrue($deleted[$key], "'{$key}' was properly deleted.");
 
@@ -34,54 +141,31 @@ class DeleteTest extends TestCase
     }
 
     /**
-     * @test
+     * Execute assertions to confirm a multiple keys were deleted.
+     *
+     * @param $deleted
+     * @param $keys
      */
-    public function delete_multiple_keys()
+    public function assertDeletedKeys($deleted, $keys): void
     {
-        $array = [
-            'bos-37' => 'c',
-            'bos-63' => 'w',
-            'bos-88' => 'w',
-            'pit-87' => 'c',
-            'pit-71' => 'c',
-            'pit-58' => 'd',
-        ];
-        RedisCache::setMany($array);
-
-        $keys = ['pit-71', 'pit-58'];
-        $deleted = RedisCache::delete($keys);
-
         $this->assertIsArray($deleted);
+        $this->assertIsArray($keys);
 
         foreach ($keys as $key) {
-            $this->assertArrayHasKey($key, $deleted);
-            $this->assertTrue($deleted[$key], "'{$key}' was properly deleted.");
-
-            $this->assertFalse(RedisCache::exists($key), "'{$key}' does exist.");
-            $this->assertTrue(RedisCache::missing($key), "'{$key}' is not missing.");
+            $this->assertDeletedKey($deleted, $key);
         }
     }
 
     /**
-     * @test
+     * Execute assertions to confirm the cache was flushed.
+     *
+     * @param $array
+     * @param $output
      */
-    public function flush_cache()
+    public function assertFlushed($array, $output): void
     {
-        $array = [
-            'bos-37' => 'c',
-            'bos-63' => 'w',
-            'bos-88' => 'w',
-            'pit-87' => 'c',
-            'pit-71' => 'c',
-            'pit-58' => 'd',
-        ];
-        RedisCache::setMany($array);
-
-        foreach ($array as $key => $value) {
-            $this->assertTrue(RedisCache::exists($key), "'{$key}' does not exist.");
-        }
-
-        RedisCache::flush();
+        $this->assertIsBool($output);
+        $this->assertTrue($output);
 
         foreach ($array as $key => $value) {
             $this->assertTrue(RedisCache::missing($key), "'{$key}' is not missing.");

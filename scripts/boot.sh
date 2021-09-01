@@ -24,8 +24,8 @@ export TAG
 
 docker-compose down -v --remove-orphans
 
-echo "Building image: stephenneal/redis-helpers:${TAG}"
-docker build -t stephenneal/redis-helpers:"${TAG}" \
+echo "Building image: stephenneal/redis-helpers:${TAG}${COMPOSER_FLAGS:8}"
+docker build -t stephenneal/redis-helpers:"${TAG}${COMPOSER_FLAGS:8}" \
     --build-arg php_composer_tag="${PHP_COMPOSER_TAG}" \
     --build-arg composer_flags="${COMPOSER_FLAGS}" \
      .
