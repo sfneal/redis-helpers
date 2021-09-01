@@ -94,9 +94,9 @@ function redisCacheView(string $key, string $view, array $data, int $expiration 
  * @param string $key
  * @param int $value
  * @param int|null $expiration
- * @return mixed
+ * @return int
  */
-function redisIncrement(string $key, int $value = 1, int $expiration = null)
+function redisIncrement(string $key, int $value = 1, int $expiration = null): int
 {
     return RedisCache::increment($key, $value, $expiration);
 }
