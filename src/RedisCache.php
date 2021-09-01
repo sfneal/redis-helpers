@@ -250,13 +250,13 @@ class RedisCache
      * Pass a $callback function to be stored in the Cache for an amount of time.
      *
      * @param string $key
-     * @param int $ttl
      * @param Closure $callback
+     * @param int|null $ttl
      * @return mixed
      */
-    public static function remember(string $key, int $ttl, Closure $callback)
+    public static function remember(string $key, Closure $callback, int $ttl = null)
     {
-        return Cache::remember($key, $ttl, $callback);
+        return Cache::remember($key, $ttl ?? self::defaultTTL(), $callback);
     }
 
     /**
