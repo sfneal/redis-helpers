@@ -13,9 +13,9 @@ class RememberTest extends TestCase
     public function remember()
     {
         $key = 'keytoremember';
-        RedisCache::remember($key, 100, function () {
+        RedisCache::remember($key, function () {
             return md5(random_int(1000, 2000));
-        });
+        }, 100);
 
         $this->assertTrue(RedisCache::exists($key), "'{$key}' does not exist");
     }

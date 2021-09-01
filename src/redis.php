@@ -138,13 +138,13 @@ function redisClearCache(): array
  * Pass a $callback function to be stored in the Cache for an amount of time.
  *
  * @param string $key
- * @param int $ttl
  * @param Closure $callback
+ * @param int|null $ttl
  * @return mixed
  */
-function redisRemember(string $key, int $ttl, Closure $callback)
+function redisRemember(string $key, Closure $callback, int $ttl = null)
 {
-    return RedisCache::remember($key, $ttl, $callback);
+    return RedisCache::remember($key, $callback, $ttl);
 }
 
 /**
