@@ -9,16 +9,15 @@ class SetTest extends TestCase
 {
     /**
      * @test
+     * @dataProvider keyValueProvider
      */
-    public function set_key_value_pair()
+    public function set_key_value_pair($key, $value)
     {
-        $key = 'bos-47';
-        $value = 'd';
         $stored = RedisCache::set($key, $value);
         $output = RedisCache::get($key);
 
         $this->assertTrue($stored);
-        $this->assertSame($value, $output);
+        $this->assertEquals($value, $output);
     }
 
     /**
@@ -41,15 +40,14 @@ class SetTest extends TestCase
 
     /**
      * @test
+     * @dataProvider keyValueProvider
      */
-    public function set_if_key_is_missing()
+    public function set_if_key_is_missing($key, $value)
     {
-        $key = 'bos-14';
-        $value = 'w';
         RedisCache::setIfMissing($key, $value);
         $expected = RedisCache::exists($key);
 
-        $this->assertTrue($expected == true);
+        $this->assertTrue($expected);
 
         $output = RedisCache::setIfMissing($key, $value);
 
@@ -58,12 +56,11 @@ class SetTest extends TestCase
 
     /**
      * @test
+     * @dataProvider keyValueProvider
      */
-    public function increment_value()
+    public function increment_value($key, $value)
     {
-        $key = 'bos-54';
-        $value = 1;
-        RedisCache::set($key, $value);
+        RedisCache::set($key, 1);
 
         $output = RedisCache::get($key);
 
