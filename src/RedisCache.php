@@ -22,6 +22,8 @@ class RedisCache
     /**
      * Retrieve a redis key with the application prefix prepended.
      *
+     *  - used when interacting directly with a Redis client instead of the `Cache` facade
+     *
      * @param string $key
      * @return string
      */
