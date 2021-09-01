@@ -89,19 +89,6 @@ function redisCacheView(string $key, string $view, array $data, int $expiration 
 }
 
 /**
- * Create a Redis Key with a null value if it is missing.
- *
- * @param string $key
- * @param null $value
- * @param int|null $expiration
- * @return bool
- */
-function redisCreateIfMissing(string $key, $value = null, int $expiration = null): bool
-{
-    return RedisCache::setIfMissing($key, $value, $expiration);
-}
-
-/**
  * Increment a Redis Key's value & return the new value.
  *
  * @param string $key
