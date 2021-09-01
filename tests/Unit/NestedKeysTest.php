@@ -184,10 +184,10 @@ class NestedKeysTest extends TestCase
 
         $output = RedisCache::get($key);
 
-        $this->assertTrue($output == 25);
+        $this->assertEquals(25, $output);
 
         $output = RedisCache::increment($key);
-        $this->assertTrue($output == 26);
+        $this->assertEquals(26, $output);
     }
 
     /** @test */
