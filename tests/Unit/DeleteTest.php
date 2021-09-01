@@ -19,7 +19,6 @@ class DeleteTest extends TestCase
         $deleted = RedisCache::delete($key);
 
         $this->assertDeletedKey($deleted, $key);
-
     }
 
     /**
@@ -65,7 +64,6 @@ class DeleteTest extends TestCase
         $deleted = redisDelete($key);
 
         $this->assertDeletedKey($deleted, $key);
-
     }
 
     /**
@@ -122,7 +120,7 @@ class DeleteTest extends TestCase
                 'pit-87' => 'c',
                 'pit-71' => 'c',
                 'pit-58' => 'd',
-            ]]
+            ]],
         ];
     }
 
