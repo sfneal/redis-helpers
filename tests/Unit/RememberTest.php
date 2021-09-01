@@ -20,35 +20,15 @@ class RememberTest extends TestCase
         $this->assertTrue(RedisCache::exists($key), "'{$key}' does not exist");
     }
 
-    public function remember_forever()
-    {
-        $key = 'keytorememberforever';
-        RedisCache::rememberForever($key, function () {
-            return md5(random_int(2000, 3000));
-        });
-
-        $this->assertTrue(RedisCache::exists($key), "'{$key}' does not exist");
-    }
-
     /**
      * @test
      */
     public function remember_helper()
     {
         $key = 'keytoremember';
-        redisRemember($key, 100, function () {
+        redisRemember($key, function () {
             return md5(random_int(1000, 2000));
-        });
-
-        $this->assertTrue(RedisCache::exists($key), "'{$key}' does not exist");
-    }
-
-    public function remember_forever_helper()
-    {
-        $key = 'keytorememberforever';
-        redisRememberForever($key, function () {
-            return md5(random_int(2000, 3000));
-        });
+        }, 100);
 
         $this->assertTrue(RedisCache::exists($key), "'{$key}' does not exist");
     }

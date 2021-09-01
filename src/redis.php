@@ -146,15 +146,3 @@ function redisRemember(string $key, Closure $callback, int $ttl = null)
 {
     return RedisCache::remember($key, $callback, $ttl);
 }
-
-/**
- * Pass a $callback function to be stored in the Cache forever.
- *
- * @param string $key
- * @param Closure $callback
- * @return mixed
- */
-function redisRememberForever(string $key, Closure $callback)
-{
-    return RedisCache::rememberForever($key, $callback);
-}

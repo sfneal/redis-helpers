@@ -258,16 +258,4 @@ class RedisCache
     {
         return Cache::remember($key, $ttl ?? self::defaultTTL(), $callback);
     }
-
-    /**
-     * Pass a $callback function to be stored in the Cache forever.
-     *
-     * @param string $key
-     * @param Closure $callback
-     * @return mixed
-     */
-    public static function rememberForever(string $key, Closure $callback)
-    {
-        return Cache::rememberForever($key, $callback);
-    }
 }
