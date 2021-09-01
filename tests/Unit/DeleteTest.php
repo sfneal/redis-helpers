@@ -39,23 +39,6 @@ class DeleteTest extends TestCase
      * @test
      * @dataProvider deleteKeysProvider
      */
-    public function flush_cache(array $array)
-    {
-        RedisCache::setMany($array);
-
-        foreach ($array as $key => $value) {
-            $this->assertTrue(RedisCache::exists($key), "'{$key}' does not exist.");
-        }
-
-        $output = RedisCache::flush();
-
-        $this->assertFlushed($array, $output);
-    }
-
-    /**
-     * @test
-     * @dataProvider deleteKeysProvider
-     */
     public function delete_single_key_helper(array $array)
     {
         RedisCache::setMany($array);
@@ -78,23 +61,6 @@ class DeleteTest extends TestCase
         $deleted = redisDelete($keys);
 
         $this->assertDeletedKeys($deleted, $keys);
-    }
-
-    /**
-     * @test
-     * @dataProvider deleteKeysProvider
-     */
-    public function flush_cache_helper(array $array)
-    {
-        RedisCache::setMany($array);
-
-        foreach ($array as $key => $value) {
-            $this->assertTrue(RedisCache::exists($key), "'{$key}' does not exist.");
-        }
-
-        $output = redisFlush();
-
-        $this->assertFlushed($array, $output);
     }
 
     /**

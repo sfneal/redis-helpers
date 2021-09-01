@@ -22,9 +22,9 @@ function redisGet(string $key)
  * @param string $key
  * @param mixed|null $value
  * @param int|null $expiration
- * @return mixed|null $value
+ * @return bool $value
  */
-function redisSet(string $key, $value = null, $expiration = null)
+function redisSet(string $key, $value = null, $expiration = null): bool
 {
     return RedisCache::set($key, $value, $expiration);
 }
@@ -34,9 +34,9 @@ function redisSet(string $key, $value = null, $expiration = null)
  *
  * @param string $key
  * @param null $expiration
- * @return mixed
+ * @return bool
  */
-function redisExpire(string $key, $expiration = null)
+function redisExpire(string $key, $expiration = null): bool
 {
     return RedisCache::expire($key, $expiration);
 }
@@ -81,24 +81,11 @@ function redisMissing(string $key): bool
  * @param string $view
  * @param array $data
  * @param int|null $expiration
- * @return mixed|null
- */
-function redisCacheView(string $key, string $view, array $data, int $expiration = null)
-{
-    return RedisCache::set($key, View::make($view, $data)->render(), $expiration);
-}
-
-/**
- * Create a Redis Key with a null value if it is missing.
- *
- * @param string $key
- * @param null $value
- * @param int|null $expiration
  * @return bool
  */
-function redisCreateIfMissing(string $key, $value = null, int $expiration = null): bool
+function redisCacheView(string $key, string $view, array $data, int $expiration = null): bool
 {
-    return RedisCache::setIfMissing($key, $value, $expiration);
+    return RedisCache::set($key, View::make($view, $data)->render(), $expiration);
 }
 
 /**
@@ -107,21 +94,11 @@ function redisCreateIfMissing(string $key, $value = null, int $expiration = null
  * @param string $key
  * @param int $value
  * @param int|null $expiration
- * @return mixed
+ * @return int
  */
-function redisIncrement(string $key, int $value = 1, int $expiration = null)
+function redisIncrement(string $key, int $value = 1, int $expiration = null): int
 {
     return RedisCache::increment($key, $value, $expiration);
-}
-
-/**
- * Flush the entire redis cache.
- *
- * @return bool
- */
-function redisFlush(): bool
-{
-    return RedisCache::flush();
 }
 
 /**
@@ -138,23 +115,11 @@ function redisClearCache(): array
  * Pass a $callback function to be stored in the Cache for an amount of time.
  *
  * @param string $key
- * @param int $ttl
  * @param Closure $callback
+ * @param int|null $ttl
  * @return mixed
  */
-function redisRemember(string $key, int $ttl, Closure $callback)
+function redisRemember(string $key, Closure $callback, int $ttl = null)
 {
-    return RedisCache::remember($key, $ttl, $callback);
-}
-
-/**
- * Pass a $callback function to be stored in the Cache forever.
- *
- * @param string $key
- * @param Closure $callback
- * @return mixed
- */
-function redisRememberForever(string $key, Closure $callback)
-{
-    return RedisCache::rememberForever($key, $callback);
+    return RedisCache::remember($key, $callback, $ttl);
 }

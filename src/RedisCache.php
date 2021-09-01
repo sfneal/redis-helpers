@@ -227,16 +227,6 @@ class RedisCache
     }
 
     /**
-     * Flush the entire redis cache.
-     *
-     * @return bool
-     */
-    public static function flush(): bool
-    {
-        return Cache::flush();
-    }
-
-    /**
      * Flush the redis cache of all keys with environment's prefix.
      *
      * @return array
@@ -250,24 +240,12 @@ class RedisCache
      * Pass a $callback function to be stored in the Cache for an amount of time.
      *
      * @param string $key
-     * @param int $ttl
      * @param Closure $callback
+     * @param int|null $ttl
      * @return mixed
      */
-    public static function remember(string $key, int $ttl, Closure $callback)
+    public static function remember(string $key, Closure $callback, int $ttl = null)
     {
-        return Cache::remember($key, $ttl, $callback);
-    }
-
-    /**
-     * Pass a $callback function to be stored in the Cache forever.
-     *
-     * @param string $key
-     * @param Closure $callback
-     * @return mixed
-     */
-    public static function rememberForever(string $key, Closure $callback)
-    {
-        return Cache::rememberForever($key, $callback);
+        return Cache::remember($key, $ttl ?? self::defaultTTL(), $callback);
     }
 }
