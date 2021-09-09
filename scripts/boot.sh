@@ -15,10 +15,10 @@ else
 fi
 
 # Repo name
-REPO="redis-helpers"
+REPO=$(basename -s .git "$(git remote get-url origin)")
 
 # Docker username
-DOCKER_USERNAME="stephenneal"
+DOCKER_USERNAME=$(git config user.name)
 
 # PHP Version
 PHP_VERSION=$(php --version)
