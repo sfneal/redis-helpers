@@ -55,7 +55,7 @@
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
         "docker-test": "bash scripts/boot.sh",
         "docker-test-lowest": "bash scripts/boot.sh --prefer-lowest",
-        "docker-down": "bash scripts/down.sh",
+        "docker-down": "docker-compose down -v --remove-orphans",
         "upload-coverage": "php vendor/bin/ocular code-coverage:upload --format=php-clover phpunit.xml.dist",
         "update-test": "composer --prefer-stable update && composer test && composer update --prefer-lowest && composer test && composer update"
     },
