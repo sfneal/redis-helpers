@@ -24,7 +24,7 @@ class RedisCache
      *
      *  - used when interacting directly with a Redis client instead of the `Cache` facade
      *
-     * @param string $key
+     * @param  string  $key
      * @return string
      */
     private static function keyWithPrefix(string $key): string
@@ -39,7 +39,7 @@ class RedisCache
     /**
      * Retrieve a key's time to live in seconds.
      *
-     * @param string $key
+     * @param  string  $key
      * @return int
      */
     public static function ttl(string $key): int
@@ -50,8 +50,8 @@ class RedisCache
     /**
      * Retrieve an array of keys that begin with a prefix.
      *
-     * @param string $prefix
-     * @param bool $wildcard
+     * @param  string  $prefix
+     * @param  bool  $wildcard
      * @return array|false[]|string[] list of keys without prefix
      */
     public static function keys(string $prefix = '', bool $wildcard = true): array
@@ -76,7 +76,7 @@ class RedisCache
     /**
      * Get items from the cache.
      *
-     * @param string $key
+     * @param  string  $key
      * @return mixed
      */
     public static function get(string $key)
@@ -89,9 +89,9 @@ class RedisCache
      *
      * Use's environment's REDIS_KEY_EXPIRATION value if $expiration is null.
      *
-     * @param string $key
-     * @param null $value
-     * @param int|null $expiration
+     * @param  string  $key
+     * @param  null  $value
+     * @param  int|null  $expiration
      * @return bool
      */
     public static function set(string $key, $value = null, int $expiration = null): bool
@@ -107,8 +107,8 @@ class RedisCache
     /**
      * Put an array of key value pairs into the cache with a TTL.
      *
-     * @param array $array
-     * @param int|null $expiration
+     * @param  array  $array
+     * @param  int|null  $expiration
      * @return array
      */
     public static function setMany(array $array, int $expiration = null): array
@@ -124,8 +124,8 @@ class RedisCache
     /**
      * Add a TTL attribute (time to live or time til expiration) to a Redis key.
      *
-     * @param string $key
-     * @param null $expiration
+     * @param  string  $key
+     * @param  null  $expiration
      * @return bool
      */
     public static function expire(string $key, $expiration = null): bool
@@ -150,7 +150,7 @@ class RedisCache
      * Delete Redis key's from the Cache.
      *
      * @param $keys array|string
-     * @param bool $children
+     * @param  bool  $children
      * @return array
      */
     public static function delete($keys, bool $children = true): array
@@ -169,7 +169,7 @@ class RedisCache
     /**
      * Determine if a redis key exists in the cache.
      *
-     * @param string $key
+     * @param  string  $key
      * @return bool
      */
     public static function exists(string $key): bool
@@ -180,7 +180,7 @@ class RedisCache
     /**
      * Determine if a redis key is missing from the cache.
      *
-     * @param string $key
+     * @param  string  $key
      * @return bool
      */
     public static function missing(string $key): bool
@@ -191,9 +191,9 @@ class RedisCache
     /**
      * Create a Redis Key with a null value if it is missing.
      *
-     * @param string $key
-     * @param null $value
-     * @param null $expiration
+     * @param  string  $key
+     * @param  null  $value
+     * @param  null  $expiration
      * @return bool
      */
     public static function setIfMissing(string $key, $value = null, $expiration = null): bool
@@ -212,9 +212,9 @@ class RedisCache
     /**
      * Increment a Redis Key's value & return the new value.
      *
-     * @param string $key
-     * @param int $value
-     * @param int|null $expiration
+     * @param  string  $key
+     * @param  int  $value
+     * @param  int|null  $expiration
      * @return int
      */
     public static function increment(string $key, int $value = 1, int $expiration = null): int
@@ -239,9 +239,9 @@ class RedisCache
     /**
      * Pass a $callback function to be stored in the Cache for an amount of time.
      *
-     * @param string $key
-     * @param Closure $callback
-     * @param int|null $ttl
+     * @param  string  $key
+     * @param  Closure  $callback
+     * @param  int|null  $ttl
      * @return mixed
      */
     public static function remember(string $key, Closure $callback, int $ttl = null)
