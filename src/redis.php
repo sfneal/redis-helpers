@@ -6,7 +6,7 @@ use Sfneal\Helpers\Redis\RedisCache;
 /**
  * Get items from the cache.
  *
- * @param string $key
+ * @param  string  $key
  * @return mixed
  */
 function redisGet(string $key)
@@ -19,9 +19,9 @@ function redisGet(string $key)
  *
  * Use's environment's REDIS_KEY_EXPIRATION value if $expiration is null.
  *
- * @param string $key
- * @param mixed|null $value
- * @param int|null $expiration
+ * @param  string  $key
+ * @param  mixed|null  $value
+ * @param  int|null  $expiration
  * @return bool $value
  */
 function redisSet(string $key, $value = null, $expiration = null): bool
@@ -32,8 +32,8 @@ function redisSet(string $key, $value = null, $expiration = null): bool
 /**
  * Add a TTL attribute (time to live or time til expiration) to a Redis key.
  *
- * @param string $key
- * @param null $expiration
+ * @param  string  $key
+ * @param  null  $expiration
  * @return bool
  */
 function redisExpire(string $key, $expiration = null): bool
@@ -55,7 +55,7 @@ function redisDelete($key): array
 /**
  * Determine if a redis key exists in the cache.
  *
- * @param string $key
+ * @param  string  $key
  * @return bool
  */
 function redisExists(string $key): bool
@@ -66,7 +66,7 @@ function redisExists(string $key): bool
 /**
  * Determine if a redis key is missing from the cache.
  *
- * @param string $key
+ * @param  string  $key
  * @return bool
  */
 function redisMissing(string $key): bool
@@ -77,10 +77,10 @@ function redisMissing(string $key): bool
 /**
  * Render a view & cache its output for reuse.
  *
- * @param string $key
- * @param string $view
- * @param array $data
- * @param int|null $expiration
+ * @param  string  $key
+ * @param  string  $view
+ * @param  array  $data
+ * @param  int|null  $expiration
  * @return bool
  */
 function redisCacheView(string $key, string $view, array $data, int $expiration = null): bool
@@ -91,9 +91,9 @@ function redisCacheView(string $key, string $view, array $data, int $expiration 
 /**
  * Increment a Redis Key's value & return the new value.
  *
- * @param string $key
- * @param int $value
- * @param int|null $expiration
+ * @param  string  $key
+ * @param  int  $value
+ * @param  int|null  $expiration
  * @return int
  */
 function redisIncrement(string $key, int $value = 1, int $expiration = null): int
@@ -114,9 +114,9 @@ function redisClearCache(): array
 /**
  * Pass a $callback function to be stored in the Cache for an amount of time.
  *
- * @param string $key
- * @param Closure $callback
- * @param int|null $ttl
+ * @param  string  $key
+ * @param  Closure  $callback
+ * @param  int|null  $ttl
  * @return mixed
  */
 function redisRemember(string $key, Closure $callback, int $ttl = null)
