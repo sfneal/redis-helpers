@@ -26,9 +26,6 @@ else
     REPO="${USER_REPO[1]}"
 fi
 
-echo "'${DOCKER_USERNAME}'"
-echo "'${REPO}'"
-
 
 # PHP Version
 PHP_VERSION=$(php --version)
@@ -38,13 +35,17 @@ PHP_VERSION=${PHP_VERSION:4:3}
 PHP_COMPOSER_TAG=${2-$PHP_VERSION}
 
 # Export Docker image Tag
-TAG="$PHP_COMPOSER_TAG-$BRANCH"
+TAG="$PHP_COMPOSER_TAG-$BRANCH${COMPOSER_FLAGS:8}"
 export TAG
+
+echo "'${DOCKER_USERNAME}'"
+echo "'${REPO}'"
+echo "'${TAG}'"
 
 docker-compose down -v --remove-orphans
 
-echo "Building image: ${DOCKER_USERNAME}/${REPO}:${TAG}${COMPOSER_FLAGS:8}"
-docker build -t "${DOCKER_USERNAME}/${REPO}:${TAG}${COMPOSER_FLAGS:8}" \
+echo "Building image: ${DOCKER_USERNAME}/${REPO}:${TAG}"
+docker build -t "${DOCKER_USERNAME}/${REPO}:${TAG}" \
     --build-arg php_composer_tag="${PHP_COMPOSER_TAG}" \
     --build-arg composer_flags="${COMPOSER_FLAGS}" \
      .
