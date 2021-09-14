@@ -48,7 +48,7 @@ docker build -t "${DOCKER_USERNAME}/${REPO}:${TAG}" \
 
 docker-compose up -d
 
-docker logs -f ${REPO}
+docker logs -f "${REPO}"
 
 while true; do
     if [[ $(docker inspect -f '{{.State.Running}}' "${REPO}") != true ]]; then
