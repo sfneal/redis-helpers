@@ -26,6 +26,9 @@ else
     REPO="${USER_REPO[1]}"
 fi
 
+echo "'${DOCKER_USERNAME}'"
+echo "'${REPO}'"
+
 
 # PHP Version
 PHP_VERSION=$(php --version)
