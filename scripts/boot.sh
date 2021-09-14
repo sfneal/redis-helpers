@@ -20,8 +20,10 @@ if [ -z "$TRAVIS_REPO_SLUG" ]; then
 
     DOCKER_USERNAME=$(git config user.name)
 else
-    DOCKER_USERNAME=$(${TRAVIS_REPO_SLUG} | cut -d "/" -f 1)
-    REPO=$(${TRAVIS_REPO_SLUG} | cut -d "/" -f 2)
+    USER_REPO=(${TRAVIS_REPO_SLUG//// })
+
+    DOCKER_USERNAME="${USER_REPO[0]}"
+    REPO="${USER_REPO[1]}"
 fi
 
 echo "'${DOCKER_USERNAME}'"
