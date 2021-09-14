@@ -14,11 +14,18 @@ else
     BRANCH="${TRAVIS_BRANCH}"
 fi
 
-# Repo name
-REPO=$(basename -s .git "$(git remote get-url origin)")
+# Repo name & Docker username
+if [ -z "$TRAVIS_REPO_SLUG" ]; then
+    REPO=$(basename -s .git "$(git remote get-url origin)")
 
-# Docker username
-DOCKER_USERNAME=$(git config user.name)
+    DOCKER_USERNAME=$(git config user.name)
+else
+    USER_REPO=${TRAVIS_REPO_SLUG//'/'/ }
+
+    DOCKER_USERNAME="${USER_REPO[0]}"
+    REPO="${USER_REPO[1]}"
+fi
+
 
 # PHP Version
 PHP_VERSION=$(php --version)
@@ -34,7 +41,7 @@ export TAG
 docker-compose down -v --remove-orphans
 
 echo "Building image: ${DOCKER_USERNAME}/${REPO}:${TAG}${COMPOSER_FLAGS:8}"
-docker build -t ${DOCKER_USERNAME}/${REPO}:"${TAG}${COMPOSER_FLAGS:8}" \
+docker build -t "${DOCKER_USERNAME}/${REPO}:${TAG}${COMPOSER_FLAGS:8}" \
     --build-arg php_composer_tag="${PHP_COMPOSER_TAG}" \
     --build-arg composer_flags="${COMPOSER_FLAGS}" \
      .
@@ -56,4 +63,4 @@ done
 docker inspect -f '{{.State.ExitCode}}' "${REPO}" > /dev/null 2>&1
 
 # Confirm the image exists
-docker image inspect ${DOCKER_USERNAME}/"${REPO}":"${TAG}" > /dev/null 2>&1
+docker image inspect "${DOCKER_USERNAME}/${REPO}:${TAG}" > /dev/null 2>&1
