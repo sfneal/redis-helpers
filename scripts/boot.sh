@@ -38,10 +38,6 @@ PHP_COMPOSER_TAG=${2-$PHP_VERSION}
 TAG="$PHP_COMPOSER_TAG-$BRANCH${COMPOSER_FLAGS:8}"
 export TAG
 
-echo "'${DOCKER_USERNAME}'"
-echo "'${REPO}'"
-echo "'${TAG}'"
-
 docker-compose down -v --remove-orphans
 
 echo "Building image: ${DOCKER_USERNAME}/${REPO}:${TAG}"
