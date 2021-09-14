@@ -144,3 +144,9 @@ All notable changes to `redis-helpers` will be documented in this file
 - cut `flush()` method as it provided no further functionality over `Cache::flush()`
 - cut `rememberForever()` method
 - refactor param declaration order of `remember()` method so that $ttl is nullable and uses the default
+
+
+# 2.0.1 - 2021-09-14
+- add composer scripts for running all docker version tests
+- cut down.sh & moved contents to composer script
+- add use of git cli for getting username & repo name
