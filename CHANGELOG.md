@@ -158,3 +158,4 @@ All notable changes to `redis-helpers` will be documented in this file
 
 # 3.0.0 - 2024-04-16
 - cut support for PHP 7
+- add support for PHP 8.1, 8.2 & 8.3
