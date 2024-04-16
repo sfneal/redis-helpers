@@ -9,6 +9,7 @@ class SetTest extends TestCase
 {
     /**
      * @test
+     *
      * @dataProvider keyValueProvider
      */
     public function set_key_value_pair($key, $value)
@@ -40,6 +41,7 @@ class SetTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider keyValueProvider
      */
     public function set_if_key_is_missing($key, $value)
@@ -56,6 +58,7 @@ class SetTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider keyValueProvider
      */
     public function increment_value($key, $value)

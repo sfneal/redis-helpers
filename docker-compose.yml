@@ -5,7 +5,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        image: "sfneal/redis-helpers:${TAG}"
+        image: "sfneal/redis-helpers:latest"
         env_file: .env.docker
         container_name: redis-helpers
         tty: true

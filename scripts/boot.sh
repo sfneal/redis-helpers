@@ -40,8 +40,8 @@ export TAG
 
 docker-compose down -v --remove-orphans
 
-echo "Building image: ${DOCKER_USERNAME}/${REPO}:${TAG}"
-docker build -t "${DOCKER_USERNAME}/${REPO}:${TAG}" \
+echo "Building image: ${DOCKER_USERNAME}/${REPO}:latest"
+docker build -t "${DOCKER_USERNAME}/${REPO}:latest" \
     --build-arg php_composer_tag="${PHP_COMPOSER_TAG}" \
     --build-arg composer_flags="${COMPOSER_FLAGS}" \
      .
@@ -63,4 +63,4 @@ done
 docker inspect -f '{{.State.ExitCode}}' "${REPO}" > /dev/null 2>&1
 
 # Confirm the image exists
-docker image inspect "${DOCKER_USERNAME}/${REPO}:${TAG}" > /dev/null 2>&1
+docker image inspect "${DOCKER_USERNAME}/${REPO}:latest" > /dev/null 2>&1
