@@ -44,7 +44,7 @@ function redisExpire(string $key, $expiration = null): bool
 /**
  * Delete Redis key's from the Cache.
  *
- * @param $key array|string
+ * @param  $key  array|string
  * @return array
  */
 function redisDelete($key): array

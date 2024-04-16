@@ -9,6 +9,7 @@ class ExistsTest extends TestCase
 {
     /**
      * @test
+     *
      * @dataProvider keyValueProvider
      */
     public function key_exists($key, $value)
@@ -22,6 +23,7 @@ class ExistsTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider keyValueProvider
      */
     public function key_exists_helper($key, $value)

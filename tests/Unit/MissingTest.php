@@ -9,6 +9,7 @@ class MissingTest extends TestCase
 {
     /**
      * @test
+     *
      * @dataProvider keyValueProvider
      */
     public function is_key_missing($key, $value)
@@ -20,6 +21,7 @@ class MissingTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider keyValueProvider
      */
     public function is_key_missing_helper($key, $value)

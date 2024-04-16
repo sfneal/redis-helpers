@@ -9,6 +9,7 @@ class DeleteTest extends TestCase
 {
     /**
      * @test
+     *
      * @dataProvider deleteKeysProvider
      */
     public function delete_single_key(array $array)
@@ -23,6 +24,7 @@ class DeleteTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider deleteKeysProvider
      */
     public function delete_multiple_keys(array $array)
@@ -37,6 +39,7 @@ class DeleteTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider deleteKeysProvider
      */
     public function delete_single_key_helper(array $array)
@@ -51,6 +54,7 @@ class DeleteTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider deleteKeysProvider
      */
     public function delete_multiple_keys_helper(array $array)
@@ -93,8 +97,8 @@ class DeleteTest extends TestCase
     /**
      * Execute assertions to confirm a single key was deleted.
      *
-     * @param $deleted
-     * @param $key
+     * @param  $deleted
+     * @param  $key
      */
     public function assertDeletedKey($deleted, $key): void
     {
@@ -109,8 +113,8 @@ class DeleteTest extends TestCase
     /**
      * Execute assertions to confirm a multiple keys were deleted.
      *
-     * @param $deleted
-     * @param $keys
+     * @param  $deleted
+     * @param  $keys
      */
     public function assertDeletedKeys($deleted, $keys): void
     {
@@ -125,8 +129,8 @@ class DeleteTest extends TestCase
     /**
      * Execute assertions to confirm the cache was flushed.
      *
-     * @param $array
-     * @param $output
+     * @param  $array
+     * @param  $output
      */
     public function assertFlushed($array, $output): void
     {
