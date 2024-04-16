@@ -82,7 +82,7 @@ All notable changes to `redis-helpers` will be documented in this file
 
 
 ## 1.2.0 - 2021-02-02
-- add call to RedisCache::flush() in TestCase::tearDown() to clear any previously cached values 
+- add call to RedisCache::flush() in TestCase::tearDown() to clear any previously cached values
 - add RedisCache::keys() method that lists keys in the Redis cache
 - add ability to delete nested keys to RedisCache::delete() method
 - add ttl() method to RedisCache for checking the time to live of a particular key
@@ -132,8 +132,8 @@ All notable changes to `redis-helpers` will be documented in this file
 - optimize test suite organization by setting redis client & other config values in the root `TestCase` #26
 - fix issues with nested keys tests failing while using the 'mock' redis client #27
 - add try/catch block to `RedisCache::key()` method so that when an error is encountered while trying to find child keys, the original key is returned
- 
- 
+
+
 ## 1.4.1 - 2021-09-01
 - add helper method tests & use of DataProviders
 - optimize methods return type hinting
@@ -150,3 +150,7 @@ All notable changes to `redis-helpers` will be documented in this file
 - add composer scripts for running all docker version tests
 - cut down.sh & moved contents to composer script
 - add use of git cli for getting username & repo name
+
+
+# 2.0.2 - 2024-04-16
+- add GitHub action for running CI
