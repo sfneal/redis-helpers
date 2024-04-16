@@ -44,7 +44,7 @@ docker build -t stephenneal/redis-helpers:"latest" \
     --build-arg composer_flags="${COMPOSER_FLAGS}" \
      .
 
-docker-compose up -d
+docker-compose up -d --no-build
 
 docker logs -f redis-helpers
 
