@@ -9,6 +9,7 @@ class GetTest extends TestCase
 {
     /**
      * @test
+     *
      * @dataProvider keyValueProvider
      */
     public function get_keys_value($key, $value)
@@ -21,6 +22,7 @@ class GetTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider keyValueProvider
      */
     public function get_keys_value_helper($key, $value)

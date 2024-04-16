@@ -58,7 +58,7 @@ class RedisCache
     {
         try {
             return array_map(
-            // Remove prefix from each key so that it's not concatenated twice
+                // Remove prefix from each key so that it's not concatenated twice
                 function ($key) {
                     return substr($key, strlen(config('cache.prefix')) + 1);
                 },
@@ -149,7 +149,7 @@ class RedisCache
     /**
      * Delete Redis key's from the Cache.
      *
-     * @param $keys array|string
+     * @param  $keys  array|string
      * @param  bool  $children
      * @return array
      */
