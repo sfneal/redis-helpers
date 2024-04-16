@@ -2,10 +2,8 @@ name: Docker Builds
 
 on:
     push:
-#        branches:
-#            - master
-    release:
-        types: [published]
+        branches:
+            - master
 
 jobs:
     test:
@@ -14,7 +12,7 @@ jobs:
             fail-fast: false
             matrix:
                 os: [ ubuntu-latest ]
-                php: [7.1, 7.2, 7.3, 7.4, 8.0]
+                php: [7.2, 7.3, 7.4, 8.0]
                 composer-test: [docker-test, docker-test-lowest]
 
         name: PHP${{ matrix.php }} - ${{ matrix.composer-test }}
