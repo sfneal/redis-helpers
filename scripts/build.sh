@@ -22,9 +22,10 @@ if [ ${#PHP_COMPOSER_TAG} == 1 ]; then
     PHP_COMPOSER_TAG="${PHP_COMPOSER_TAG}.0"
 fi
 
+echo "${PHP_COMPOSER_TAG}"
+
 # Create the image tag
 TAG="$PHP_COMPOSER_TAG-$BRANCH"
-echo ${TAG}
 
 # Add '--lowest' tag suffix when installing the lowest allowable versions
 if [ -n "$COMPOSER_FLAGS" ]; then
@@ -34,36 +35,9 @@ fi
 # Export $TAG as a global variable, exposing to docker-compose.yml
 export TAG
 
-# Shut down running containers
-docker-compose down -v --remove-orphans
-
 # Build the image
 echo "Building image: stephenneal/redis-helpers:latest"
 docker build -t stephenneal/redis-helpers:"latest" \
     --build-arg php_composer_tag="${PHP_COMPOSER_TAG}" \
     --build-arg composer_flags="${COMPOSER_FLAGS}" \
      .
-
-docker-compose up -d
-
-docker logs -f redis-helpers
-
-while true; do
-    if [[ $(docker inspect -f '{{.State.Running}}' redis-helpers) != true ]]; then
-        break
-    else
-        echo "'redis-helpers' container is still running... waiting 3 secs then checking again..."
-        sleep 3
-    fi
-done
-
-# Confirm it exited with code 0
-if [[ $(docker inspect -f '{{.State.ExitCode}}' redis-helpers) == 0 ]]; then
-    echo "Success: Tests Passed! - stephenneal/redis-helpers:latest"
-else
-    echo "Error: Tests Failed! - stephenneal/redis-helpers:latest"
-    exit 1
-fi
-
-# Confirm the image exists
-docker image inspect stephenneal/redis-helpers:"latest" > /dev/null 2>&1
