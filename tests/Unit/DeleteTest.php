@@ -72,7 +72,7 @@ class DeleteTest extends TestCase
      *
      * @return string[][][]
      */
-    public function deleteKeysProvider(): array
+    public static function deleteKeysProvider(): array
     {
         return [
             [[

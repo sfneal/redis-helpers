@@ -67,7 +67,7 @@ abstract class TestCase extends OrchestraTestCase
      *
      * @return array[]
      */
-    public function keyValueProvider(): array
+    public static function keyValueProvider(): array
     {
         $randomKeyValuePair = function () {
             return [array_rand(['bos', 'pit', 'phi']).'-'.rand(1, 99), array_rand(['c', 'w', 'd'])];
