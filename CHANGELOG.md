@@ -154,3 +154,7 @@ All notable changes to `redis-helpers` will be documented in this file
 
 # 2.0.2 - 2024-04-16
 - add GitHub action for running CI
+
+
+# 3.0.0 - 2024-04-16
+- cut support for PHP 7
