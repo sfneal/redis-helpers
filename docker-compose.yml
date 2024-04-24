@@ -18,7 +18,7 @@ services:
 
     redis-helpers-cache:
         container_name: redis-helpers-cache
-        image: redis:6-alpine
+        image: redis:7-alpine
         command: ["redis-server", "--appendonly yes", "--port 9736"]
         ports:
             - "9736:9736"
