@@ -94,7 +94,7 @@ class RedisCache
      * @param  int|null  $expiration
      * @return bool
      */
-    public static function set(string $key, $value = null, int $expiration = null): bool
+    public static function set(string $key, $value = null, ?int $expiration = null): bool
     {
         // Store the $value in the Cache
         return Cache::put(
@@ -111,7 +111,7 @@ class RedisCache
      * @param  int|null  $expiration
      * @return array
      */
-    public static function setMany(array $array, int $expiration = null): array
+    public static function setMany(array $array, ?int $expiration = null): array
     {
         // todo: optimize by using collections
         foreach ($array as $key => $value) {
@@ -217,7 +217,7 @@ class RedisCache
      * @param  int|null  $expiration
      * @return int
      */
-    public static function increment(string $key, int $value = 1, int $expiration = null): int
+    public static function increment(string $key, int $value = 1, ?int $expiration = null): int
     {
         // Create the Key if it's missing
         self::setIfMissing($key, 0, $expiration);
@@ -244,7 +244,7 @@ class RedisCache
      * @param  int|null  $ttl
      * @return mixed
      */
-    public static function remember(string $key, Closure $callback, int $ttl = null)
+    public static function remember(string $key, Closure $callback, ?int $ttl = null)
     {
         return Cache::remember($key, $ttl ?? self::defaultTTL(), $callback);
     }
