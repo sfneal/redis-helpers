@@ -83,7 +83,7 @@ function redisMissing(string $key): bool
  * @param  int|null  $expiration
  * @return bool
  */
-function redisCacheView(string $key, string $view, array $data, int $expiration = null): bool
+function redisCacheView(string $key, string $view, array $data, ?int $expiration = null): bool
 {
     return RedisCache::set($key, View::make($view, $data)->render(), $expiration);
 }
@@ -96,7 +96,7 @@ function redisCacheView(string $key, string $view, array $data, int $expiration 
  * @param  int|null  $expiration
  * @return int
  */
-function redisIncrement(string $key, int $value = 1, int $expiration = null): int
+function redisIncrement(string $key, int $value = 1, ?int $expiration = null): int
 {
     return RedisCache::increment($key, $value, $expiration);
 }
@@ -119,7 +119,7 @@ function redisClearCache(): array
  * @param  int|null  $ttl
  * @return mixed
  */
-function redisRemember(string $key, Closure $callback, int $ttl = null)
+function redisRemember(string $key, Closure $callback, ?int $ttl = null)
 {
     return RedisCache::remember($key, $callback, $ttl);
 }
